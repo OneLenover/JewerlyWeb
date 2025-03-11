@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using JewelryWeb.Models;
+using JewelryWeb.Interfaces;
 
 namespace JewelryWeb.Controllers
 {
@@ -13,32 +14,33 @@ namespace JewelryWeb.Controllers
     [ApiController]
     public class SuppliersController : ControllerBase
     {
-        private readonly AppDbContext _context;
+        private readonly ISupplierService _supplierService;
 
-        public SuppliersController(AppDbContext context)
+        public SuppliersController(ISupplierService supplierService)
         {
-            _context = context;
+            _supplierService = supplierService;
         }
 
         // GET: api/Suppliers
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Supplier>>> GetSuppliers()
+        public async Task<ActionResult<IEnumerable<Supplier>>> GetSuppliers(CancellationToken cancellation)
         {
-            return await _context.Suppliers.ToListAsync();
+            var suppliers = await _supplierService.GetAllSuppliersAsync(cancellation);
+            return Ok(suppliers);
         }
 
         // GET: api/Suppliers/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Supplier>> GetSupplier(int id)
+        public async Task<ActionResult<Supplier>> GetSupplier(int id, CancellationToken cancellationToken)
         {
-            var supplier = await _context.Suppliers.FindAsync(id);
+            var supplier = await _supplierService.GetSupplierByIdAsync(id, cancellationToken);
 
             if (supplier == null)
             {
                 return NotFound();
             }
 
-            return supplier;
+            return Ok(supplier);
         }
 
         // PUT: api/Suppliers/5
@@ -46,27 +48,10 @@ namespace JewelryWeb.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutSupplier(int id, Supplier supplier)
         {
-            if (id != supplier.Id)
+            var update = await _supplierService.UpdateSupplierAsync(id, supplier);
+            if (!update)
             {
                 return BadRequest();
-            }
-
-            _context.Entry(supplier).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!SupplierExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
             }
 
             return NoContent();
@@ -77,31 +62,20 @@ namespace JewelryWeb.Controllers
         [HttpPost]
         public async Task<ActionResult<Supplier>> PostSupplier(Supplier supplier)
         {
-            _context.Suppliers.Add(supplier);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetSupplier", new { id = supplier.Id }, supplier);
+            var createdSupplier = await _supplierService.CreateSupplierAsync(supplier);
+            return CreatedAtAction(nameof(GetSupplier), new { id = createdSupplier.Id }, createdSupplier);
         }
 
         // DELETE: api/Suppliers/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteSupplier(int id)
         {
-            var supplier = await _context.Suppliers.FindAsync(id);
-            if (supplier == null)
+            var deleted = await _supplierService.DeleteSupplierAsync(id);
+            if (!deleted)
             {
                 return NotFound();
             }
-
-            _context.Suppliers.Remove(supplier);
-            await _context.SaveChangesAsync();
-
             return NoContent();
-        }
-
-        private bool SupplierExists(int id)
-        {
-            return _context.Suppliers.Any(e => e.Id == id);
         }
     }
 }

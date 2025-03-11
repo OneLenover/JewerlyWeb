@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using JewelryWeb.Models;
+using JewelryWeb.Interfaces;
 
 namespace JewelryWeb.Controllers
 {
@@ -13,95 +10,66 @@ namespace JewelryWeb.Controllers
     [ApiController]
     public class MaterialsController : ControllerBase
     {
-        private readonly AppDbContext _context;
+        private readonly IMaterialService _materialService;
 
-        public MaterialsController(AppDbContext context)
+        public MaterialsController(IMaterialService materialService)
         {
-            _context = context;
+            _materialService = materialService;
         }
 
         // GET: api/Materials
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Material>>> GetMaterials()
+        public async Task<ActionResult<IEnumerable<Material>>> GetMaterials(CancellationToken cancellationToken)
         {
-            return await _context.Materials.ToListAsync();
+            var materials = await _materialService.GetAllMaterialsAsync(cancellationToken);
+            return Ok(materials);
         }
 
         // GET: api/Materials/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Material>> GetMaterial(int id)
+        public async Task<ActionResult<Material>> GetMaterial(int id, CancellationToken cancellationToken)
         {
-            var material = await _context.Materials.FindAsync(id);
-
+            var material = await _materialService.GetMaterialByIdAsync(id, cancellationToken);
             if (material == null)
             {
                 return NotFound();
             }
 
-            return material;
+            return Ok(material);
         }
 
         // PUT: api/Materials/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
         public async Task<IActionResult> PutMaterial(int id, Material material)
         {
-            if (id != material.Id)
+            var updated = await _materialService.UpdateMaterialAsync(id, material);
+            if (!updated)
             {
                 return BadRequest();
-            }
-
-            _context.Entry(material).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!MaterialExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
             }
 
             return NoContent();
         }
 
         // POST: api/Materials
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
         public async Task<ActionResult<Material>> PostMaterial(Material material)
         {
-            _context.Materials.Add(material);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetMaterial", new { id = material.Id }, material);
+            var createdMaterial = await _materialService.CreateMaterialAsync(material);
+            return CreatedAtAction(nameof(GetMaterial), new { id = createdMaterial.Id }, createdMaterial);
         }
 
         // DELETE: api/Materials/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteMaterial(int id)
         {
-            var material = await _context.Materials.FindAsync(id);
-            if (material == null)
+            var deleted = await _materialService.DeleteMaterialAsync(id);
+            if (!deleted)
             {
                 return NotFound();
             }
 
-            _context.Materials.Remove(material);
-            await _context.SaveChangesAsync();
-
             return NoContent();
-        }
-
-        private bool MaterialExists(int id)
-        {
-            return _context.Materials.Any(e => e.Id == id);
         }
     }
 }

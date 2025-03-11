@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using JewelryWeb.Models;
+using JewelryWeb.Interfaces;
 
 namespace JewelryWeb.Controllers
 {
@@ -13,95 +10,66 @@ namespace JewelryWeb.Controllers
     [ApiController]
     public class ClientsController : ControllerBase
     {
-        private readonly AppDbContext _context;
+        private readonly IClientService _clientService;
 
-        public ClientsController(AppDbContext context)
+        public ClientsController(IClientService clientService)
         {
-            _context = context;
+            _clientService = clientService;
         }
 
         // GET: api/Clients
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Client>>> GetClients()
+        public async Task<ActionResult<IEnumerable<Client>>> GetClients(CancellationToken cancellationToken)
         {
-            return await _context.Clients.ToListAsync();
+            var clients = await _clientService.GetAllClientsAsync(cancellationToken);
+            return Ok(clients);
         }
 
         // GET: api/Clients/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Client>> GetClient(int id)
+        public async Task<ActionResult<Client>> GetClient(int id, CancellationToken cancellationToken)
         {
-            var client = await _context.Clients.FindAsync(id);
-
+            var client = await _clientService.GetClientByIdAsync(id, cancellationToken);
             if (client == null)
             {
                 return NotFound();
             }
 
-            return client;
+            return Ok(client);
         }
 
         // PUT: api/Clients/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
         public async Task<IActionResult> PutClient(int id, Client client)
         {
-            if (id != client.Id)
+            var updated = await _clientService.UpdateClientAsync(id, client);
+            if (!updated)
             {
                 return BadRequest();
-            }
-
-            _context.Entry(client).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!ClientExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
             }
 
             return NoContent();
         }
 
         // POST: api/Clients
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
         public async Task<ActionResult<Client>> PostClient(Client client)
         {
-            _context.Clients.Add(client);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetClient", new { id = client.Id }, client);
+            var createdClient = await _clientService.CreateClientAsync(client);
+            return CreatedAtAction(nameof(GetClient), new { id = createdClient.Id }, createdClient);
         }
 
         // DELETE: api/Clients/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteClient(int id)
         {
-            var client = await _context.Clients.FindAsync(id);
-            if (client == null)
+            var deleted = await _clientService.DeleteClientAsync(id);
+            if (!deleted)
             {
                 return NotFound();
             }
 
-            _context.Clients.Remove(client);
-            await _context.SaveChangesAsync();
-
             return NoContent();
-        }
-
-        private bool ClientExists(int id)
-        {
-            return _context.Clients.Any(e => e.Id == id);
         }
     }
 }

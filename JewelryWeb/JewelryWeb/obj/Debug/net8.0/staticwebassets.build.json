@@ -1,12 +1,20 @@
 {
   "Version": 1,
-  "Hash": "44qigaDllnUaSMaakkHT/mg6o/RMsm6QqpAm+3m3UL4=",
+  "Hash": "DtLb8SfjBajKqqUNax1XKUmkPs376TmToYeaJ0Hc6/A=",
   "Source": "JewelryWeb",
   "BasePath": "_content/JewelryWeb",
   "Mode": "Default",
   "ManifestType": "Build",
   "ReferencedProjectsConfiguration": [],
-  "DiscoveryPatterns": [],
+  "DiscoveryPatterns": [
+    {
+      "Name": "JewelryWeb\\wwwroot",
+      "Source": "JewelryWeb",
+      "ContentRoot": "C:\\Users\\loris\\source\\repos\\JewelryWeb\\JewelryWeb\\wwwroot\\",
+      "BasePath": "_content/JewelryWeb",
+      "Pattern": "**"
+    }
+  ],
   "Assets": [
     {
       "Identity": "C:\\Users\\loris\\.nuget\\packages\\microsoft.aspnetcore.components.quickgrid\\8.0.11\\staticwebassets\\Microsoft.AspNetCore.Components.QuickGrid.bundle.scp.css",
@@ -64,6 +72,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "C:\\Users\\loris\\source\\repos\\JewelryWeb\\JewelryWeb\\obj\\Debug\\net8.0\\scopedcss\\bundle\\JewelryWeb.styles.css"
+    },
+    {
+      "Identity": "C:\\Users\\loris\\source\\repos\\JewelryWeb\\JewelryWeb\\wwwroot\\index.html",
+      "SourceId": "JewelryWeb",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\loris\\source\\repos\\JewelryWeb\\JewelryWeb\\wwwroot\\",
+      "BasePath": "_content/JewelryWeb",
+      "RelativePath": "index.html",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\index.html"
     }
   ]
 }

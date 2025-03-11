@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using JewelryWeb.Models;
+using JewelryWeb.Interfaces;
 
 namespace JewelryWeb.Controllers
 {
@@ -13,95 +10,66 @@ namespace JewelryWeb.Controllers
     [ApiController]
     public class OrderElementsController : ControllerBase
     {
-        private readonly AppDbContext _context;
+        private readonly IOrderElementsService _orderElementsService;
 
-        public OrderElementsController(AppDbContext context)
+        public OrderElementsController(IOrderElementsService orderElementsService)
         {
-            _context = context;
+            _orderElementsService = orderElementsService;
         }
 
         // GET: api/OrderElements
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<OrderElements>>> GetOrdersElements()
+        public async Task<ActionResult<IEnumerable<OrderElements>>> GetOrdersElements(CancellationToken cancellationToken)
         {
-            return await _context.OrdersElements.ToListAsync();
+            var orderElements = await _orderElementsService.GetAllOrderElementsAsync(cancellationToken);
+            return Ok(orderElements);
         }
 
         // GET: api/OrderElements/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<OrderElements>> GetOrderElements(int id)
+        public async Task<ActionResult<OrderElements>> GetOrderElements(int id, CancellationToken cancellationToken)
         {
-            var orderElements = await _context.OrdersElements.FindAsync(id);
-
-            if (orderElements == null)
+            var orderElement = await _orderElementsService.GetOrderElementByIdAsync(id, cancellationToken);
+            if (orderElement == null)
             {
                 return NotFound();
             }
 
-            return orderElements;
+            return Ok(orderElement);
         }
 
         // PUT: api/OrderElements/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
         public async Task<IActionResult> PutOrderElements(int id, OrderElements orderElements)
         {
-            if (id != orderElements.Id)
+            var update = await _orderElementsService.UpdateOrderElementAsync(id, orderElements);
+            if (!update)
             {
                 return BadRequest();
-            }
-
-            _context.Entry(orderElements).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!OrderElementsExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
             }
 
             return NoContent();
         }
 
         // POST: api/OrderElements
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
         public async Task<ActionResult<OrderElements>> PostOrderElements(OrderElements orderElements)
         {
-            _context.OrdersElements.Add(orderElements);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetOrderElements", new { id = orderElements.Id }, orderElements);
+            var createdOrderElement = await _orderElementsService.CreateOrderElementAsync(orderElements);
+            return CreatedAtAction(nameof(GetOrderElements), new { id = createdOrderElement.Id }, createdOrderElement);
         }
 
         // DELETE: api/OrderElements/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteOrderElements(int id)
         {
-            var orderElements = await _context.OrdersElements.FindAsync(id);
-            if (orderElements == null)
+            var deleted = await _orderElementsService.DeleteOrderElementAsync(id);
+            if (!deleted)
             {
                 return NotFound();
             }
 
-            _context.OrdersElements.Remove(orderElements);
-            await _context.SaveChangesAsync();
-
             return NoContent();
-        }
-
-        private bool OrderElementsExists(int id)
-        {
-            return _context.OrdersElements.Any(e => e.Id == id);
         }
     }
 }

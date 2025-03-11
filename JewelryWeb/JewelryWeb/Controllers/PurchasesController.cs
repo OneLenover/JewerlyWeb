@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using JewelryWeb.Models;
+using JewelryWeb.Interfaces;
 
 namespace JewelryWeb.Controllers
 {
@@ -13,95 +10,66 @@ namespace JewelryWeb.Controllers
     [ApiController]
     public class PurchasesController : ControllerBase
     {
-        private readonly AppDbContext _context;
+        private readonly IPurchaseService _purchaseService;
 
-        public PurchasesController(AppDbContext context)
+        public PurchasesController(IPurchaseService purchaseService)
         {
-            _context = context;
+            _purchaseService = purchaseService;
         }
 
         // GET: api/Purchases
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Purchase>>> GetPurchases()
+        public async Task<ActionResult<IEnumerable<Purchase>>> GetPurchases(CancellationToken cancellation)
         {
-            return await _context.Purchases.ToListAsync();
+            var purchases = await _purchaseService.GetAllPurchasesAsync(cancellation);
+            return Ok(purchases);
         }
 
         // GET: api/Purchases/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Purchase>> GetPurchase(int id)
+        public async Task<ActionResult<Purchase>> GetPurchase(int id, CancellationToken cancellationToken)
         {
-            var purchase = await _context.Purchases.FindAsync(id);
-
+            var purchase = await _purchaseService.GetPurchaseByIdAsync(id, cancellationToken);
             if (purchase == null)
             {
                 return NotFound();
             }
 
-            return purchase;
+            return Ok(purchase);
         }
 
         // PUT: api/Purchases/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
         public async Task<IActionResult> PutPurchase(int id, Purchase purchase)
         {
-            if (id != purchase.Id)
+            var updated = await _purchaseService.UpdatePurchaseAsync(id, purchase);
+            if (!updated)
             {
                 return BadRequest();
-            }
-
-            _context.Entry(purchase).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!PurchaseExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
             }
 
             return NoContent();
         }
 
         // POST: api/Purchases
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
         public async Task<ActionResult<Purchase>> PostPurchase(Purchase purchase)
         {
-            _context.Purchases.Add(purchase);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetPurchase", new { id = purchase.Id }, purchase);
+            var createdPurchase = await _purchaseService.CreatePurchaseAsync(purchase);
+            return CreatedAtAction(nameof(GetPurchase), new { id = createdPurchase.Id }, createdPurchase);
         }
 
         // DELETE: api/Purchases/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeletePurchase(int id)
         {
-            var purchase = await _context.Purchases.FindAsync(id);
-            if (purchase == null)
+            var deleted = await _purchaseService.DeletePurchaseAsync(id);
+            if (!deleted)
             {
                 return NotFound();
             }
 
-            _context.Purchases.Remove(purchase);
-            await _context.SaveChangesAsync();
-
             return NoContent();
-        }
-
-        private bool PurchaseExists(int id)
-        {
-            return _context.Purchases.Any(e => e.Id == id);
         }
     }
 }
