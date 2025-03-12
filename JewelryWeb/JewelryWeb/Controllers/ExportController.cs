@@ -1,25 +1,41 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.DiaSymReader;
 using System;
 using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
+using System.IO;
 using ClosedXML.Excel;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using JewelryWeb.Models;
+using System.Collections.Generic;
+using System.Reflection;
+using Microsoft.AspNetCore.Authorization;
 
 namespace JewelryWeb.Controllers
 {
+    /// <summary>
+    /// Контроллер экспорта базы данных в Excel
+    /// </summary>
+    [Authorize]
+    [Route("api/[controller]")]
+    [ApiController]
     public class ExportController : ControllerBase
     {
         private readonly AppDbContext _context;
-        
+
+        /// <summary>
+        /// Конструктор контроллера экспорта
+        /// </summary>
+        /// <param name="context">Контекст базы данных</param>
         public ExportController(AppDbContext context)
         {
             _context = context;
         }
 
+        /// <summary>
+        /// Экспорт всей базы данных в Excel
+        /// </summary>
+        /// <returns>Файл Excel с данными</returns>
         [HttpGet("export-db")]
         public async Task<IActionResult> ExportDatabaseToExcelAsync()
         {
@@ -29,11 +45,12 @@ namespace JewelryWeb.Controllers
                 .Where(p => p.PropertyType.IsGenericType && p.PropertyType.GetGenericTypeDefinition() == typeof(DbSet<>))
                 .ToList();
 
-            foreach (var dbSet in dbSets) 
+            foreach (var dbSet in dbSets)
             {
                 string tableName = dbSet.Name;
 
                 var table = await ConvertToDataTableAsync(dbSet);
+                if (table == null) continue;
 
                 var worksheet = workbook.Worksheets.Add(tableName);
                 worksheet.Cell(1, 1).InsertTable(table);
@@ -43,20 +60,23 @@ namespace JewelryWeb.Controllers
             workbook.SaveAs(stream);
             stream.Position = 0;
 
-            return File(stream.ToArray(), "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "DatabaseExport.xlsx");
+            return File(stream, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "DatabaseExport.xlsx");
         }
 
-        private async Task<DataTable> ConvertToDataTableAsync(System.Reflection.PropertyInfo dbSetProperty)
+        /// <summary>
+        /// Преобразует DbSet в DataTable
+        /// </summary>
+        private async Task<DataTable?> ConvertToDataTableAsync(PropertyInfo dbSetProperty)
         {
             var dbSet = dbSetProperty.GetValue(_context);
             if (dbSet is not IQueryable<object> queryable) return null;
 
-            var data = await queryable.ToListAsync();
-            if (data.Count == 0) return null;
+            var data = await queryable.Cast<object>().ToListAsync();
+            if (!data.Any()) return null;
 
             var dataTable = new DataTable(dbSetProperty.Name);
-
             var properties = data.First().GetType().GetProperties();
+
             foreach (var prop in properties)
             {
                 dataTable.Columns.Add(prop.Name, Nullable.GetUnderlyingType(prop.PropertyType) ?? prop.PropertyType);

@@ -3,21 +3,34 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using JewelryWeb.Models;
 using JewelryWeb.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 
 namespace JewelryWeb.Controllers
 {
+    /// <summary>
+    /// Контроллер для управления заказами
+    /// </summary>
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class OrdersController : ControllerBase
     {
         private readonly IOrdersService _ordersService;
 
+        /// <summary>
+        /// Конструктор контроллера заказов
+        /// </summary>
+        /// <param name="ordersService">Сервис заказов</param>
         public OrdersController(IOrdersService ordersService)
         {
             _ordersService = ordersService;
         }
 
-        // GET: api/Orders
+        /// <summary>
+        /// Получает список всех заказов
+        /// </summary>
+        /// <param name="cancellationToken">Токен отмены операции</param>
+        /// <returns>Список всех заказов</returns>
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Order>>> GetOrders(CancellationToken cancellationToken)
         {
@@ -25,7 +38,12 @@ namespace JewelryWeb.Controllers
             return Ok(orders);
         }
 
-        // GET: api/Orders/5
+        /// <summary>
+        /// Получает заказ по идентификатору
+        /// </summary>
+        /// <param name="id">Идентификатор заказа</param>
+        /// <param name="cancellationToken">Токен отмены операции</param>
+        /// <returns>Объект заказа</returns>
         [HttpGet("{id}")]
         public async Task<ActionResult<Order>> GetOrder(int id, CancellationToken cancellationToken)
         {
@@ -38,7 +56,12 @@ namespace JewelryWeb.Controllers
             return Ok(order);
         }
 
-        // PUT: api/Orders/5
+        /// <summary>
+        /// Обновляет заказ
+        /// </summary>
+        /// <param name="id">Идентификатор обновляемого заказа</param>
+        /// <param name="order">Объект с новыми данными заказа</param>
+        /// <returns>Результат обновления</returns>
         [HttpPut("{id}")]
         public async Task<IActionResult> PutOrder(int id, Order order)
         {
@@ -51,7 +74,11 @@ namespace JewelryWeb.Controllers
             return NoContent();
         }
 
-        // POST: api/Orders
+        /// <summary>
+        /// Создает новый заказ
+        /// </summary>
+        /// <param name="order">Объект заказа для создания</param>
+        /// <returns>Созданный объект заказа</returns>
         [HttpPost]
         public async Task<ActionResult<Order>> PostOrder(Order order)
         {
@@ -59,7 +86,11 @@ namespace JewelryWeb.Controllers
             return CreatedAtAction(nameof(GetOrder), new { id = createdOrder.Id }, createdOrder);
         }
 
-        // DELETE: api/Orders/5
+        /// <summary>
+        /// Удаляет заказ по идентификатору
+        /// </summary>
+        /// <param name="id">Идентификатор удаляемого заказа</param>
+        /// <returns>Результат удаления</returns>
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteOrder(int id)
         {

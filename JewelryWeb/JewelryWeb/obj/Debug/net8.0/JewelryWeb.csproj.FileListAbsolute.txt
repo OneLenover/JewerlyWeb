@@ -304,3 +304,5 @@ C:\Users\loris\source\repos\JewelryWeb\JewelryWeb\bin\Debug\net8.0\ExcelNumberFo
 C:\Users\loris\source\repos\JewelryWeb\JewelryWeb\bin\Debug\net8.0\RBush.dll
 C:\Users\loris\source\repos\JewelryWeb\JewelryWeb\bin\Debug\net8.0\SixLabors.Fonts.dll
 C:\Users\loris\source\repos\JewelryWeb\JewelryWeb\bin\Debug\net8.0\System.IO.Packaging.dll
+C:\Users\loris\source\repos\JewelryWeb\JewelryWeb\bin\Debug\net8.0\JewelryWeb.xml
+C:\Users\loris\source\repos\JewelryWeb\JewelryWeb\obj\Debug\net8.0\JewelryWeb.xml

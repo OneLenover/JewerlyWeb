@@ -18,6 +18,10 @@ internal class Program
     {
         var builder = WebApplication.CreateBuilder(args);
 
+        builder.Services.Configure<AuthOptions>(builder.Configuration.GetSection("AuthOptions"));
+
+        var authOptions = builder.Configuration.GetSection("AuthOptions").Get<AuthOptions>();
+
         var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 
         // Add services to the container.
@@ -44,11 +48,11 @@ internal class Program
                 options.TokenValidationParameters = new TokenValidationParameters
                 {
                     ValidateIssuer = true,
-                    ValidIssuer = AuthOptions.ISSUER,
+                    ValidIssuer = authOptions?.Issuer,
                     ValidateAudience = true,
-                    ValidAudience = AuthOptions.AUDIENCE,
+                    ValidAudience = authOptions?.Audience,
                     ValidateLifetime = true,
-                    IssuerSigningKey = AuthOptions.GetSymmetricSecurityKey(),
+                    IssuerSigningKey = authOptions?.GetSymmetricSecurityKey(),
                     ValidateIssuerSigningKey = true,
 
                 };
@@ -79,13 +83,4 @@ internal class Program
 
         app.Run();
     }
-}
-
-public class AuthOptions
-{
-    public const string ISSUER = "MyAuthServer";
-    public const string AUDIENCE = "MyAuthClient";
-    const string KEY = "X9C2V5M1A4T7B3Y6E8Q0L2N5O7P1R3Z6";
-    public static SymmetricSecurityKey GetSymmetricSecurityKey() => 
-        new SymmetricSecurityKey(Encoding.UTF8.GetBytes(KEY));
 }

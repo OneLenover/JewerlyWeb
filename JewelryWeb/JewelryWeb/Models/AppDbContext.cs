@@ -2,24 +2,46 @@
 
 namespace JewelryWeb.Models
 {
+    /// <summary>
+    /// Контекст базы данных
+    /// </summary>
     public class AppDbContext : DbContext
     {
+        /// <summary>
+        /// Инициализирует новый экземпляр
+        /// </summary>
+        /// <param name="options">Параметры конфигурации для контекста базы данных</param>
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
 
+        /// <summary>Модель товаров</summary>
         public DbSet<Product> Products { get; set; }
+        /// <summary>Модель категорий</summary>
         public DbSet<Category> Categories { get; set; }
+        /// <summary>Модель материалов</summary>
         public DbSet<Material> Materials { get; set; }
+        /// <summary>Модель закупок</summary>
         public DbSet<Purchase> Purchases { get; set; }
+        /// <summary>Модель поставщиков</summary>
         public DbSet<Supplier> Suppliers { get; set; }
+        /// <summary>Модель отзывов</summary>
         public DbSet<Review> Reviews { get; set; }
+        /// <summary>Модель клиентов</summary>
         public DbSet<Client> Clients { get; set; }
+        /// <summary>Модель заказов</summary>
         public DbSet<Order> Orders { get; set; }
+        /// <summary>Модель платежей</summary>
         public DbSet<Payment> Payments { get; set; }
+        /// <summary>Модель типа платежей</summary>
         public DbSet<TypePayment> TypesPayment { get; set; }
+        /// <summary>Можель элементов зазаза</summary>
         public DbSet<OrderElements> OrdersElements { get; set; }
+        /// <summary>Модель пользователей</summary>
         public DbSet<User> Users { get; set; }
 
-
+        /// <summary>
+        /// Настройка моделей и связей в бд
+        /// </summary>
+        /// <param name="modelBuilder">Построитель моделей</param>
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Order>().Property(o => o.TotalCost).HasColumnType("numeric(18,2)");

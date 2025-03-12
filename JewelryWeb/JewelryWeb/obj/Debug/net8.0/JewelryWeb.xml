@@ -1,0 +1,2109 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>JewelryWeb</name>
+    </assembly>
+    <members>
+        <member name="T:JewelryWeb.AuthOptions">
+            <summary>
+            Опции аутентификации для настройки JWT-токенов
+            </summary>
+        </member>
+        <member name="P:JewelryWeb.AuthOptions.Issuer">
+            <summary>
+            Издатель токена
+            </summary>
+        </member>
+        <member name="P:JewelryWeb.AuthOptions.Audience">
+            <summary>
+            Потребитель токена
+            </summary>
+        </member>
+        <member name="P:JewelryWeb.AuthOptions.SecretKey">
+            <summary>
+            Секретный ключ для подписи токена
+            </summary>
+        </member>
+        <member name="M:JewelryWeb.AuthOptions.GetSymmetricSecurityKey">
+            <summary>
+            Генерирует симметричный ключ безопасности из секретного ключа
+            </summary>
+            <returns>Объект <see cref="T:Microsoft.IdentityModel.Tokens.SymmetricSecurityKey"/> для подписи токена.</returns>
+        </member>
+        <member name="T:JewelryWeb.Controllers.CategoriesController">
+            <summary>
+            Контроллер для управления категориями товаров
+            </summary>
+        </member>
+        <member name="M:JewelryWeb.Controllers.CategoriesController.#ctor(JewelryWeb.Interfaces.ICategoryService)">
+            <summary>
+            Конструктор контроллера категорий
+            </summary>
+            <param name="categoryService">Сервис категорий</param>
+        </member>
+        <member name="M:JewelryWeb.Controllers.CategoriesController.GetCategories(System.Threading.CancellationToken)">
+            <summary>
+            Получает список всех категорий
+            </summary>
+            <param name="cancellationToken">Токен отмены операции</param>
+            <returns>Список категорий</returns>
+        </member>
+        <member name="M:JewelryWeb.Controllers.CategoriesController.GetCategory(System.Int32,System.Threading.CancellationToken)">
+            <summary>
+            Получает категорию по идентификатору
+            </summary>
+            <param name="id">Идентификатор категории</param>
+            <param name="cancellationToken">Токен отмены операции</param>
+            <returns>Объект категории</returns>
+        </member>
+        <member name="M:JewelryWeb.Controllers.CategoriesController.PutCategory(System.Int32,JewelryWeb.Models.Category)">
+            <summary>
+            Обновляет категорию
+            </summary>
+            <param name="id">Идентификатор категории</param>
+            <param name="category">Объект с обновленными данными</param>
+            <returns>Результат операции</returns>
+        </member>
+        <member name="M:JewelryWeb.Controllers.CategoriesController.PostCategory(JewelryWeb.Models.Category)">
+            <summary>
+            Создает новую категорию
+            </summary>
+            <param name="category">Объект категории</param>
+            <returns>Созданная категория</returns>
+        </member>
+        <member name="M:JewelryWeb.Controllers.CategoriesController.DeleteCategory(System.Int32)">
+            <summary>
+            Удаляет категорию по идентификатору
+            </summary>
+            <param name="id">Идентификатор категории</param>
+            <returns>Результат удаления</returns>
+        </member>
+        <member name="T:JewelryWeb.Controllers.ClientsController">
+            <summary>
+            Контроллер для управления клиентами
+            </summary>
+        </member>
+        <member name="M:JewelryWeb.Controllers.ClientsController.#ctor(JewelryWeb.Interfaces.IClientService)">
+            <summary>
+            Конструктор контроллера клиентов
+            </summary>
+            <param name="clientService">Сервис категорий</param>
+        </member>
+        <member name="M:JewelryWeb.Controllers.ClientsController.GetClients(System.Threading.CancellationToken)">
+            <summary>
+            Получает список всех клиентов
+            </summary>
+            <param name="cancellationToken">Токен отмены операции</param>
+            <returns>Список всех клиентов</returns>
+        </member>
+        <member name="M:JewelryWeb.Controllers.ClientsController.GetClient(System.Int32,System.Threading.CancellationToken)">
+            <summary>
+            Получает клиента по id
+            </summary>
+            <param name="id">Идентификатор клиента</param>
+            <param name="cancellationToken">Токен отмены операции</param>
+            <returns>Объект клиента</returns>
+        </member>
+        <member name="M:JewelryWeb.Controllers.ClientsController.PutClient(System.Int32,JewelryWeb.Models.Client)">
+            <summary>
+            Обновляет клиента
+            </summary>
+            <param name="id">Идентификатор обновляемого клиента</param>
+            <param name="client">Объект с новыми данными</param>
+            <returns>Объект клиента</returns>
+        </member>
+        <member name="M:JewelryWeb.Controllers.ClientsController.PostClient(JewelryWeb.Models.Client)">
+            <summary>
+            Создает нового клиента
+            </summary>
+            <param name="client">Объект клиента для создания</param>
+            <returns>Созданный объект клиента</returns>
+        </member>
+        <member name="M:JewelryWeb.Controllers.ClientsController.DeleteClient(System.Int32)">
+            <summary>
+            Удаляет клиента по id
+            </summary>
+            <param name="id">Идентификатор удаляемого клиента</param>
+            <returns>Резутльтат удаления</returns>
+        </member>
+        <member name="T:JewelryWeb.Controllers.ExportController">
+            <summary>
+            Контроллер экспорта базы данных в Excel
+            </summary>
+        </member>
+        <member name="M:JewelryWeb.Controllers.ExportController.#ctor(JewelryWeb.Models.AppDbContext)">
+            <summary>
+            Конструктор контроллера экспорта
+            </summary>
+            <param name="context">Контекст базы данных</param>
+        </member>
+        <member name="M:JewelryWeb.Controllers.ExportController.ExportDatabaseToExcelAsync">
+            <summary>
+            Экспорт всей базы данных в Excel
+            </summary>
+            <returns>Файл Excel с данными</returns>
+        </member>
+        <member name="M:JewelryWeb.Controllers.ExportController.ConvertToDataTableAsync(System.Reflection.PropertyInfo)">
+            <summary>
+            Преобразует DbSet в DataTable
+            </summary>
+        </member>
+        <member name="T:JewelryWeb.Controllers.MaterialsController">
+            <summary>
+            Контроллер для управления материалами
+            </summary>
+        </member>
+        <member name="M:JewelryWeb.Controllers.MaterialsController.#ctor(JewelryWeb.Interfaces.IMaterialService)">
+            <summary>
+            Конструктор контроллера материалов
+            </summary>
+            <param name="materialService">Сервис материалов</param>
+        </member>
+        <member name="M:JewelryWeb.Controllers.MaterialsController.GetMaterials(System.Threading.CancellationToken)">
+            <summary>
+            Получает список всех материалов
+            </summary>
+            <param name="cancellationToken">Токен отмены операции</param>
+            <returns>Список всех материалов</returns>
+        </member>
+        <member name="M:JewelryWeb.Controllers.MaterialsController.GetMaterial(System.Int32,System.Threading.CancellationToken)">
+            <summary>
+            Получает материал по идентификатору
+            </summary>
+            <param name="id">Идентификатор материала</param>
+            <param name="cancellationToken">Токен отмены операции</param>
+            <returns>Объект материала</returns>
+        </member>
+        <member name="M:JewelryWeb.Controllers.MaterialsController.PutMaterial(System.Int32,JewelryWeb.Models.Material)">
+            <summary>
+            Обновляет материал
+            </summary>
+            <param name="id">Идентификатор обновляемого материала</param>
+            <param name="material">Объект с новыми данными материала</param>
+            <returns>Результат обновления</returns>
+        </member>
+        <member name="M:JewelryWeb.Controllers.MaterialsController.PostMaterial(JewelryWeb.Models.Material)">
+            <summary>
+            Создает новый материал
+            </summary>
+            <param name="material">Объект материала для создания</param>
+            <returns>Созданный объект материала</returns>
+        </member>
+        <member name="M:JewelryWeb.Controllers.MaterialsController.DeleteMaterial(System.Int32)">
+            <summary>
+            Удаляет материал по идентификатору
+            </summary>
+            <param name="id">Идентификатор удаляемого материала</param>
+            <returns>Результат удаления</returns>
+        </member>
+        <member name="T:JewelryWeb.Controllers.OrderElementsController">
+            <summary>
+            Контроллер для управления элементами заказа
+            </summary>
+        </member>
+        <member name="M:JewelryWeb.Controllers.OrderElementsController.#ctor(JewelryWeb.Interfaces.IOrderElementsService)">
+            <summary>
+            Конструктор контроллера элементов заказа
+            </summary>
+            <param name="orderElementsService">Сервис элементов заказа</param>
+        </member>
+        <member name="M:JewelryWeb.Controllers.OrderElementsController.GetOrdersElements(System.Threading.CancellationToken)">
+            <summary>
+            Получает список всех элементов заказа
+            </summary>
+            <param name="cancellationToken">Токен отмены операции</param>
+            <returns>Список всех элементов заказа</returns>
+        </member>
+        <member name="M:JewelryWeb.Controllers.OrderElementsController.GetOrderElements(System.Int32,System.Threading.CancellationToken)">
+            <summary>
+            Получает элемент заказа по идентификатору
+            </summary>
+            <param name="id">Идентификатор элемента заказа</param>
+            <param name="cancellationToken">Токен отмены операции</param>
+            <returns>Объект элемента заказа</returns>
+        </member>
+        <member name="M:JewelryWeb.Controllers.OrderElementsController.PutOrderElements(System.Int32,JewelryWeb.Models.OrderElements)">
+            <summary>
+            Обновляет элемент заказа
+            </summary>
+            <param name="id">Идентификатор обновляемого элемента заказа</param>
+            <param name="orderElements">Объект с новыми данными элемента заказа</param>
+            <returns>Результат обновления</returns>
+        </member>
+        <member name="M:JewelryWeb.Controllers.OrderElementsController.PostOrderElements(JewelryWeb.Models.OrderElements)">
+            <summary>
+            Создает новый элемент заказа
+            </summary>
+            <param name="orderElements">Объект элемента заказа для создания</param>
+            <returns>Созданный объект элемента заказа</returns>
+        </member>
+        <member name="M:JewelryWeb.Controllers.OrderElementsController.DeleteOrderElements(System.Int32)">
+            <summary>
+            Удаляет элемент заказа по идентификатору
+            </summary>
+            <param name="id">Идентификатор удаляемого элемента заказа</param>
+            <returns>Результат удаления</returns>
+        </member>
+        <member name="T:JewelryWeb.Controllers.OrdersController">
+            <summary>
+            Контроллер для управления заказами
+            </summary>
+        </member>
+        <member name="M:JewelryWeb.Controllers.OrdersController.#ctor(JewelryWeb.Interfaces.IOrdersService)">
+            <summary>
+            Конструктор контроллера заказов
+            </summary>
+            <param name="ordersService">Сервис заказов</param>
+        </member>
+        <member name="M:JewelryWeb.Controllers.OrdersController.GetOrders(System.Threading.CancellationToken)">
+            <summary>
+            Получает список всех заказов
+            </summary>
+            <param name="cancellationToken">Токен отмены операции</param>
+            <returns>Список всех заказов</returns>
+        </member>
+        <member name="M:JewelryWeb.Controllers.OrdersController.GetOrder(System.Int32,System.Threading.CancellationToken)">
+            <summary>
+            Получает заказ по идентификатору
+            </summary>
+            <param name="id">Идентификатор заказа</param>
+            <param name="cancellationToken">Токен отмены операции</param>
+            <returns>Объект заказа</returns>
+        </member>
+        <member name="M:JewelryWeb.Controllers.OrdersController.PutOrder(System.Int32,JewelryWeb.Models.Order)">
+            <summary>
+            Обновляет заказ
+            </summary>
+            <param name="id">Идентификатор обновляемого заказа</param>
+            <param name="order">Объект с новыми данными заказа</param>
+            <returns>Результат обновления</returns>
+        </member>
+        <member name="M:JewelryWeb.Controllers.OrdersController.PostOrder(JewelryWeb.Models.Order)">
+            <summary>
+            Создает новый заказ
+            </summary>
+            <param name="order">Объект заказа для создания</param>
+            <returns>Созданный объект заказа</returns>
+        </member>
+        <member name="M:JewelryWeb.Controllers.OrdersController.DeleteOrder(System.Int32)">
+            <summary>
+            Удаляет заказ по идентификатору
+            </summary>
+            <param name="id">Идентификатор удаляемого заказа</param>
+            <returns>Результат удаления</returns>
+        </member>
+        <member name="T:JewelryWeb.Controllers.PaymentsController">
+            <summary>
+            Контроллер для управления платежами
+            </summary>
+        </member>
+        <member name="M:JewelryWeb.Controllers.PaymentsController.#ctor(JewelryWeb.Interfaces.IPaymentsService)">
+            <summary>
+            Конструктор контроллера платежей
+            </summary>
+            <param name="paymentsService">Сервис платежей</param>
+        </member>
+        <member name="M:JewelryWeb.Controllers.PaymentsController.GetPayments(System.Threading.CancellationToken)">
+            <summary>
+            Получает список всех платежей
+            </summary>
+            <param name="cancellationToken">Токен отмены операции</param>
+            <returns>Список всех платежей</returns>
+        </member>
+        <member name="M:JewelryWeb.Controllers.PaymentsController.GetPayment(System.Int32,System.Threading.CancellationToken)">
+            <summary>
+            Получает платеж по идентификатору
+            </summary>
+            <param name="id">Идентификатор платежа</param>
+            <param name="cancellationToken">Токен отмены операции</param>
+            <returns>Объект платежа</returns>
+        </member>
+        <member name="M:JewelryWeb.Controllers.PaymentsController.PutPayment(System.Int32,JewelryWeb.Models.Payment)">
+            <summary>
+            Обновляет платеж
+            </summary>
+            <param name="id">Идентификатор обновляемого платежа</param>
+            <param name="payment">Объект с новыми данными платежа</param>
+            <returns>Результат обновления</returns>
+        </member>
+        <member name="M:JewelryWeb.Controllers.PaymentsController.PostPayment(JewelryWeb.Models.Payment)">
+            <summary>
+            Создает новый платеж
+            </summary>
+            <param name="payment">Объект платежа для создания</param>
+            <returns>Созданный объект платежа</returns>
+        </member>
+        <member name="M:JewelryWeb.Controllers.PaymentsController.DeletePayment(System.Int32)">
+            <summary>
+            Удаляет платеж по идентификатору
+            </summary>
+            <param name="id">Идентификатор удаляемого платежа</param>
+            <returns>Результат удаления</returns>
+        </member>
+        <member name="T:JewelryWeb.Controllers.ProductsController">
+            <summary>
+            Контроллер для управления товарами
+            </summary>
+        </member>
+        <member name="M:JewelryWeb.Controllers.ProductsController.#ctor(JewelryWeb.Interfaces.IProductsService)">
+            <summary>
+            Конструктор контроллера товаров
+            </summary>
+            <param name="productsService">Сервис товаров</param>
+        </member>
+        <member name="M:JewelryWeb.Controllers.ProductsController.GetProducts(System.Threading.CancellationToken)">
+            <summary>
+            Получает список всех товаров
+            </summary>
+            <param name="cancellationToken">Токен отмены операции</param>
+            <returns>Список всех товаров</returns>
+        </member>
+        <member name="M:JewelryWeb.Controllers.ProductsController.GetProduct(System.Int32,System.Threading.CancellationToken)">
+            <summary>
+            Получает товар по идентификатору
+            </summary>
+            <param name="id">Идентификатор товара</param>
+            <param name="cancellationToken">Токен отмены операции</param>
+            <returns>Объект товара</returns>
+        </member>
+        <member name="M:JewelryWeb.Controllers.ProductsController.PutProduct(System.Int32,JewelryWeb.Models.Product)">
+            <summary>
+            Обновляет товар
+            </summary>
+            <param name="id">Идентификатор обновляемого товара</param>
+            <param name="product">Объект с новыми данными товара</param>
+            <returns>Результат обновления</returns>
+        </member>
+        <member name="M:JewelryWeb.Controllers.ProductsController.PostProduct(JewelryWeb.Models.Product)">
+            <summary>
+            Создает новый товар
+            </summary>
+            <param name="product">Объект товара для создания</param>
+            <returns>Созданный объект товара</returns>
+        </member>
+        <member name="M:JewelryWeb.Controllers.ProductsController.DeleteProduct(System.Int32)">
+            <summary>
+            Удаляет товар по идентификатору
+            </summary>
+            <param name="id">Идентификатор удаляемого товара</param>
+            <returns>Результат удаления</returns>
+        </member>
+        <member name="T:JewelryWeb.Controllers.PurchasesController">
+            <summary>
+            Контроллер для управления закупками
+            </summary>
+        </member>
+        <member name="M:JewelryWeb.Controllers.PurchasesController.#ctor(JewelryWeb.Interfaces.IPurchaseService)">
+            <summary>
+            Конструктор контроллера закупок
+            </summary>
+            <param name="purchaseService">Сервис закупок</param>
+        </member>
+        <member name="M:JewelryWeb.Controllers.PurchasesController.GetPurchases(System.Threading.CancellationToken)">
+            <summary>
+            Получает список всех закупок
+            </summary>
+            <param name="cancellationToken">Токен отмены операции</param>
+            <returns>Список всех закупок</returns>
+        </member>
+        <member name="M:JewelryWeb.Controllers.PurchasesController.GetPurchase(System.Int32,System.Threading.CancellationToken)">
+            <summary>
+            Получает закупку по идентификатору
+            </summary>
+            <param name="id">Идентификатор закупки</param>
+            <param name="cancellationToken">Токен отмены операции</param>
+            <returns>Объект закупки</returns>
+        </member>
+        <member name="M:JewelryWeb.Controllers.PurchasesController.PutPurchase(System.Int32,JewelryWeb.Models.Purchase)">
+            <summary>
+            Обновляет закупку
+            </summary>
+            <param name="id">Идентификатор обновляемой закупки</param>
+            <param name="purchase">Объект с новыми данными закупки</param>
+            <returns>Результат обновления</returns>
+        </member>
+        <member name="M:JewelryWeb.Controllers.PurchasesController.PostPurchase(JewelryWeb.Models.Purchase)">
+            <summary>
+            Создает новую закупку
+            </summary>
+            <param name="purchase">Объект закупки для создания</param>
+            <returns>Созданный объект закупки</returns>
+        </member>
+        <member name="M:JewelryWeb.Controllers.PurchasesController.DeletePurchase(System.Int32)">
+            <summary>
+            Удаляет закупку по идентификатору
+            </summary>
+            <param name="id">Идентификатор удаляемой закупки</param>
+            <returns>Результат удаления</returns>
+        </member>
+        <member name="T:JewelryWeb.Controllers.ReviewsController">
+            <summary>
+            Контроллер для управления отзывами
+            </summary>
+        </member>
+        <member name="M:JewelryWeb.Controllers.ReviewsController.#ctor(JewelryWeb.Interfaces.IReviewService)">
+            <summary>
+            Конструктор контроллера отзывов
+            </summary>
+            <param name="reviewService">Сервис отзывов</param>
+        </member>
+        <member name="M:JewelryWeb.Controllers.ReviewsController.GetReviews(System.Threading.CancellationToken)">
+            <summary>
+            Получает список всех отзывов
+            </summary>
+            <param name="cancellationToken">Токен отмены операции</param>
+            <returns>Список всех отзывов</returns>
+        </member>
+        <member name="M:JewelryWeb.Controllers.ReviewsController.GetReview(System.Int32,System.Threading.CancellationToken)">
+            <summary>
+            Получает отзыв по идентификатору
+            </summary>
+            <param name="id">Идентификатор отзыва</param>
+            <param name="cancellationToken">Токен отмены операции</param>
+            <returns>Объект отзыва</returns>
+        </member>
+        <member name="M:JewelryWeb.Controllers.ReviewsController.PutReview(System.Int32,JewelryWeb.Models.Review)">
+            <summary>
+            Обновляет отзыв
+            </summary>
+            <param name="id">Идентификатор обновляемого отзыва</param>
+            <param name="review">Объект с новыми данными отзыва</param>
+            <returns>Результат обновления</returns>
+        </member>
+        <member name="M:JewelryWeb.Controllers.ReviewsController.PostReview(JewelryWeb.Models.Review)">
+            <summary>
+            Создает новый отзыв
+            </summary>
+            <param name="review">Объект отзыва для создания</param>
+            <returns>Созданный объект отзыва</returns>
+        </member>
+        <member name="M:JewelryWeb.Controllers.ReviewsController.DeleteReview(System.Int32)">
+            <summary>
+            Удаляет отзыв по идентификатору
+            </summary>
+            <param name="id">Идентификатор удаляемого отзыва</param>
+            <returns>Результат удаления</returns>
+        </member>
+        <member name="T:JewelryWeb.Controllers.SuppliersController">
+            <summary>
+            Контроллер для управления поставщиками
+            </summary>
+        </member>
+        <member name="M:JewelryWeb.Controllers.SuppliersController.#ctor(JewelryWeb.Interfaces.ISupplierService)">
+            <summary>
+            Конструктор контроллера поставщиков
+            </summary>
+            <param name="supplierService">Сервис поставщиков</param>
+        </member>
+        <member name="M:JewelryWeb.Controllers.SuppliersController.GetSuppliers(System.Threading.CancellationToken)">
+            <summary>
+            Получает список всех поставщиков
+            </summary>
+            <param name="cancellationToken">Токен отмены операции</param>
+            <returns>Список всех поставщиков</returns>
+        </member>
+        <member name="M:JewelryWeb.Controllers.SuppliersController.GetSupplier(System.Int32,System.Threading.CancellationToken)">
+            <summary>
+            Получает поставщика по идентификатору
+            </summary>
+            <param name="id">Идентификатор поставщика</param>
+            <param name="cancellationToken">Токен отмены операции</param>
+            <returns>Объект поставщика</returns>
+        </member>
+        <member name="M:JewelryWeb.Controllers.SuppliersController.PutSupplier(System.Int32,JewelryWeb.Models.Supplier)">
+            <summary>
+            Обновляет поставщика
+            </summary>
+            <param name="id">Идентификатор обновляемого поставщика</param>
+            <param name="supplier">Объект с новыми данными поставщика</param>
+            <returns>Результат обновления</returns>
+        </member>
+        <member name="M:JewelryWeb.Controllers.SuppliersController.PostSupplier(JewelryWeb.Models.Supplier)">
+            <summary>
+            Создает нового поставщика
+            </summary>
+            <param name="supplier">Объект поставщика для создания</param>
+            <returns>Созданный объект поставщика</returns>
+        </member>
+        <member name="M:JewelryWeb.Controllers.SuppliersController.DeleteSupplier(System.Int32)">
+            <summary>
+            Удаляет поставщика по идентификатору
+            </summary>
+            <param name="id">Идентификатор удаляемого поставщика</param>
+            <returns>Результат удаления</returns>
+        </member>
+        <member name="T:JewelryWeb.ExceptionHandlingMiddleware">
+            <summary>
+            Middleware для глобальной обработки исключений в приложении
+            </summary>
+        </member>
+        <member name="M:JewelryWeb.ExceptionHandlingMiddleware.#ctor(Microsoft.AspNetCore.Http.RequestDelegate,Microsoft.Extensions.Logging.ILogger{JewelryWeb.ExceptionHandlingMiddleware})">
+            <summary>
+            Создает новый экземпляр>.
+            </summary>
+            <param name="next">Делегат запроса, передающий управление следующему</param>
+            <param name="logger">Логирование для записи информации об ошибках</param>
+        </member>
+        <member name="M:JewelryWeb.ExceptionHandlingMiddleware.InvokeAsync(Microsoft.AspNetCore.Http.HttpContext)">
+            <summary>
+            Обрабатывает HTTP-запрос и перехватывает возможные исключения
+            </summary>
+            <param name="context">Контекст HTTP-запроса</param>
+        </member>
+        <member name="M:JewelryWeb.ExceptionHandlingMiddleware.HandleConcurrencyExceptionAsync(Microsoft.AspNetCore.Http.HttpContext)">
+            <summary>
+            Обрабатывает исключение, связанное с конфликтом при обновлении данных в БД
+            </summary>
+            <param name="context">Контекст HTTP-запроса</param>
+        </member>
+        <member name="M:JewelryWeb.ExceptionHandlingMiddleware.HandleExceptionAsync(Microsoft.AspNetCore.Http.HttpContext,System.Exception)">
+            <summary>
+            Обрабатывает общее исключение
+            </summary>
+            <param name="context">Контекст HTTP-запроса</param>
+            <param name="ex">Исключение, вызвавшее ошибку</param>
+        </member>
+        <member name="T:JewelryWeb.Interfaces.ICategoryService">
+            <summary>
+            Интерфейс сервиса для работы с категориями
+            </summary>
+        </member>
+        <member name="M:JewelryWeb.Interfaces.ICategoryService.GetAllCategoriesAsync(System.Threading.CancellationToken)">
+            <summary>
+            Получает список всех категорий
+            </summary>
+            <param name="cancellationToken">Токен отмены операции</param>
+            <returns>Список категорий</returns>
+        </member>
+        <member name="M:JewelryWeb.Interfaces.ICategoryService.GetCategoryByIdAsync(System.Int32,System.Threading.CancellationToken)">
+            <summary>
+            Получается категорию по id
+            </summary>
+            <param name="id">Уникальный идентификатор категории</param>
+            <param name="cancellation">Токен отмены категории</param>
+            <returns>Объект категории</returns>
+        </member>
+        <member name="M:JewelryWeb.Interfaces.ICategoryService.UpdateCategoryAsync(System.Int32,JewelryWeb.Models.Category)">
+            <summary>
+            Обновляет категории
+            </summary>
+            <param name="id">Идентификатор обновляемой категории</param>
+            <param name="category">Объект с новыми данными</param>
+            <returns>true - успешно, false - ошибка</returns>
+        </member>
+        <member name="M:JewelryWeb.Interfaces.ICategoryService.CreateCategoryAsync(JewelryWeb.Models.Category)">
+            <summary>
+            Создает новую категорию
+            </summary>
+            <param name="category">Объект категории для создания</param>
+            <returns>Созданный объект категории</returns>
+        </member>
+        <member name="M:JewelryWeb.Interfaces.ICategoryService.DeleteCategoryAsync(System.Int32)">
+            <summary>
+            Удаляет категорию по id
+            </summary>
+            <param name="id">Идентификатор удаляемой категории</param>
+            <returns>true - успешно, false - ошибка</returns>
+        </member>
+        <member name="T:JewelryWeb.Interfaces.IClientService">
+            <summary>
+            Интерфейс сервиса для работы с клиентами
+            </summary>
+        </member>
+        <member name="M:JewelryWeb.Interfaces.IClientService.GetAllClientsAsync(System.Threading.CancellationToken)">
+            <summary>
+            Получает список всех клиентов
+            </summary>
+            <param name="cancellationToken">Токен отмены операции</param>
+            <returns>Список всех клиентов</returns>
+        </member>
+        <member name="M:JewelryWeb.Interfaces.IClientService.GetClientByIdAsync(System.Int32,System.Threading.CancellationToken)">
+            <summary>
+            Получает клиента по id
+            </summary>
+            <param name="id">Идентификатор клиента</param>
+            <param name="cancellationToken">Токен отмены операции</param>
+            <returns>Объект клиента</returns>
+        </member>
+        <member name="M:JewelryWeb.Interfaces.IClientService.UpdateClientAsync(System.Int32,JewelryWeb.Models.Client)">
+            <summary>
+            Обновляет клиента
+            </summary>
+            <param name="id">Идентификатор обновляемого клиента</param>
+            <param name="client">Объект с новыми данными</param>
+            <returns>true - успешно, false - ошибка</returns>
+        </member>
+        <member name="M:JewelryWeb.Interfaces.IClientService.CreateClientAsync(JewelryWeb.Models.Client)">
+            <summary>
+            Создает нового клиента
+            </summary>
+            <param name="client">Объект клиента для создания</param>
+            <returns>Созданный объект клиента</returns>
+        </member>
+        <member name="M:JewelryWeb.Interfaces.IClientService.DeleteClientAsync(System.Int32)">
+            <summary>
+            Удаляет клиента по id
+            </summary>
+            <param name="id">Идентификатор удаляемого клиента</param>
+            <returns>true - успешно, false - ошибка</returns>
+        </member>
+        <member name="T:JewelryWeb.Interfaces.IMaterialService">
+            <summary>
+            Интерфейс сервиса для работы с материалами
+            </summary>
+        </member>
+        <member name="M:JewelryWeb.Interfaces.IMaterialService.GetAllMaterialsAsync(System.Threading.CancellationToken)">
+            <summary>
+            Получает список всех материалов
+            </summary>
+            <param name="cancellationToken">Токен отмены операции</param>
+            <returns>Список всех материалов</returns>
+        </member>
+        <member name="M:JewelryWeb.Interfaces.IMaterialService.GetMaterialByIdAsync(System.Int32,System.Threading.CancellationToken)">
+            <summary>
+            Получает материал по идентификатору
+            </summary>
+            <param name="id">Идентификатор материала</param>
+            <param name="cancellationToken">Токен отмены операции</param>
+            <returns>Объект материала</returns>
+        </member>
+        <member name="M:JewelryWeb.Interfaces.IMaterialService.UpdateMaterialAsync(System.Int32,JewelryWeb.Models.Material)">
+            <summary>
+            Обновляет материал
+            </summary>
+            <param name="id">Идентификатор обновляемого материала</param>
+            <param name="material">Объект с новыми данными материала</param>
+            <returns>true - успешно, false - ошибка</returns>
+        </member>
+        <member name="M:JewelryWeb.Interfaces.IMaterialService.CreateMaterialAsync(JewelryWeb.Models.Material)">
+            <summary>
+            Создает новый материал
+            </summary>
+            <param name="material">Объект материала для создания</param>
+            <returns>Созданный объект материала</returns>
+        </member>
+        <member name="M:JewelryWeb.Interfaces.IMaterialService.DeleteMaterialAsync(System.Int32)">
+            <summary>
+            Удаляет материал по идентификатору
+            </summary>
+            <param name="id">Идентификатор удаляемого материала</param>
+            <returns>true - успешно, false - ошибка</returns>
+        </member>
+        <member name="T:JewelryWeb.Interfaces.IOrderElementsService">
+            <summary>
+            Интерфейс сервиса для работы с элементами заказа
+            </summary>
+        </member>
+        <member name="M:JewelryWeb.Interfaces.IOrderElementsService.GetAllOrderElementsAsync(System.Threading.CancellationToken)">
+            <summary>
+            Получает список всех элементов заказа
+            </summary>
+            <param name="cancellationToken">Токен отмены операции</param>
+            <returns>Список всех элементов заказа</returns>
+        </member>
+        <member name="M:JewelryWeb.Interfaces.IOrderElementsService.GetOrderElementByIdAsync(System.Int32,System.Threading.CancellationToken)">
+            <summary>
+            Получает элемент заказа по идентификатору
+            </summary>
+            <param name="id">Идентификатор элемента заказа</param>
+            <param name="cancellationToken">Токен отмены операции</param>
+            <returns>Объект элемента заказа</returns>
+        </member>
+        <member name="M:JewelryWeb.Interfaces.IOrderElementsService.UpdateOrderElementAsync(System.Int32,JewelryWeb.Models.OrderElements)">
+            <summary>
+            Обновляет элемент заказа
+            </summary>
+            <param name="id">Идентификатор обновляемого элемента заказа</param>
+            <param name="orderElement">Объект с новыми данными элемента заказа</param>
+            <returns>true - успешно, false - ошибка</returns>
+        </member>
+        <member name="M:JewelryWeb.Interfaces.IOrderElementsService.CreateOrderElementAsync(JewelryWeb.Models.OrderElements)">
+            <summary>
+            Создает новый элемент заказа
+            </summary>
+            <param name="orderElement">Объект элемента заказа для создания</param>
+            <returns>Созданный объект элемента заказа</returns>
+        </member>
+        <member name="M:JewelryWeb.Interfaces.IOrderElementsService.DeleteOrderElementAsync(System.Int32)">
+            <summary>
+            Удаляет элемент заказа по идентификатору
+            </summary>
+            <param name="id">Идентификатор удаляемого элемента заказа</param>
+            <returns>true - успешно, false - ошибка</returns>
+        </member>
+        <member name="T:JewelryWeb.Interfaces.IOrdersService">
+            <summary>
+            Интерфейс сервиса для работы с заказами
+            </summary>
+        </member>
+        <member name="M:JewelryWeb.Interfaces.IOrdersService.GetAllOrdersAsync(System.Threading.CancellationToken)">
+            <summary>
+            Получает список всех заказов
+            </summary>
+            <param name="cancellationToken">Токен отмены операции</param>
+            <returns>Список всех заказов</returns>
+        </member>
+        <member name="M:JewelryWeb.Interfaces.IOrdersService.GetOrderByIdAsync(System.Int32,System.Threading.CancellationToken)">
+            <summary>
+            Получает заказ по идентификатору
+            </summary>
+            <param name="id">Идентификатор заказа</param>
+            <param name="cancellationToken">Токен отмены операции</param>
+            <returns>Объект заказа</returns>
+        </member>
+        <member name="M:JewelryWeb.Interfaces.IOrdersService.UpdateOrderAsync(System.Int32,JewelryWeb.Models.Order)">
+            <summary>
+            Обновляет заказ
+            </summary>
+            <param name="id">Идентификатор обновляемого заказа</param>
+            <param name="order">Объект с новыми данными заказа</param>
+            <returns>true - успешно, false - ошибка</returns>
+        </member>
+        <member name="M:JewelryWeb.Interfaces.IOrdersService.CreateOrderAsync(JewelryWeb.Models.Order)">
+            <summary>
+            Создает новый заказ
+            </summary>
+            <param name="order">Объект заказа для создания</param>
+            <returns>Созданный объект заказа</returns>
+        </member>
+        <member name="M:JewelryWeb.Interfaces.IOrdersService.DeleteOrderAsync(System.Int32)">
+            <summary>
+            Удаляет заказ по идентификатору
+            </summary>
+            <param name="id">Идентификатор удаляемого заказа</param>
+            <returns>true - успешно, false - ошибка</returns>
+        </member>
+        <member name="T:JewelryWeb.Interfaces.IPaymentsService">
+            <summary>
+            Интерфейс сервиса для работы с платежами
+            </summary>
+        </member>
+        <member name="M:JewelryWeb.Interfaces.IPaymentsService.GetAllPaymentsAsync(System.Threading.CancellationToken)">
+            <summary>
+            Получает список всех платежей
+            </summary>
+            <param name="cancellationToken">Токен отмены операции</param>
+            <returns>Список всех платежей</returns>
+        </member>
+        <member name="M:JewelryWeb.Interfaces.IPaymentsService.GetPaymentByIdAsync(System.Int32,System.Threading.CancellationToken)">
+            <summary>
+            Получает платеж по идентификатору
+            </summary>
+            <param name="id">Идентификатор платежа</param>
+            <param name="cancellationToken">Токен отмены операции</param>
+            <returns>Объект платежа</returns>
+        </member>
+        <member name="M:JewelryWeb.Interfaces.IPaymentsService.UpdatePaymentAsync(System.Int32,JewelryWeb.Models.Payment)">
+            <summary>
+            Обновляет платеж
+            </summary>
+            <param name="id">Идентификатор обновляемого платежа</param>
+            <param name="payment">Объект с новыми данными платежа</param>
+            <returns>true - успешно, false - ошибка</returns>
+        </member>
+        <member name="M:JewelryWeb.Interfaces.IPaymentsService.CreatePaymentAsync(JewelryWeb.Models.Payment)">
+            <summary>
+            Создает новый платеж
+            </summary>
+            <param name="payment">Объект платежа для создания</param>
+            <returns>Созданный объект платежа</returns>
+        </member>
+        <member name="M:JewelryWeb.Interfaces.IPaymentsService.DeletePaymentAsync(System.Int32)">
+            <summary>
+            Удаляет платеж по идентификатору
+            </summary>
+            <param name="id">Идентификатор удаляемого платежа</param>
+            <returns>true - успешно, false - ошибка</returns>
+        </member>
+        <member name="T:JewelryWeb.Interfaces.IProductsService">
+            <summary>
+            Интерфейс сервиса для работы с товарами
+            </summary>
+        </member>
+        <member name="M:JewelryWeb.Interfaces.IProductsService.GetAllProductsAsync(System.Threading.CancellationToken)">
+            <summary>
+            Получает список всех товаров
+            </summary>
+            <param name="cancellationToken">Токен отмены операции</param>
+            <returns>Список всех товаров</returns>
+        </member>
+        <member name="M:JewelryWeb.Interfaces.IProductsService.GetProductByIdAsync(System.Int32,System.Threading.CancellationToken)">
+            <summary>
+            Получает товар по идентификатору
+            </summary>
+            <param name="id">Идентификатор товара</param>
+            <param name="cancellationToken">Токен отмены операции</param>
+            <returns>Объект товара</returns>
+        </member>
+        <member name="M:JewelryWeb.Interfaces.IProductsService.UpdateProductAsync(System.Int32,JewelryWeb.Models.Product)">
+            <summary>
+            Обновляет товар
+            </summary>
+            <param name="id">Идентификатор обновляемого товара</param>
+            <param name="product">Объект с новыми данными товара</param>
+            <returns>true - успешно, false - ошибка</returns>
+        </member>
+        <member name="M:JewelryWeb.Interfaces.IProductsService.CreateProductAsync(JewelryWeb.Models.Product)">
+            <summary>
+            Создает новый товар
+            </summary>
+            <param name="product">Объект товара для создания</param>
+            <returns>Созданный объект товара</returns>
+        </member>
+        <member name="M:JewelryWeb.Interfaces.IProductsService.DeleteProductAsync(System.Int32)">
+            <summary>
+            Удаляет товар по идентификатору
+            </summary>
+            <param name="id">Идентификатор удаляемого товара</param>
+            <returns>true - успешно, false - ошибка</returns>
+        </member>
+        <member name="T:JewelryWeb.Interfaces.IPurchaseService">
+            <summary>
+            Интерфейс сервиса для работы с закупками
+            </summary>
+        </member>
+        <member name="M:JewelryWeb.Interfaces.IPurchaseService.GetAllPurchasesAsync(System.Threading.CancellationToken)">
+            <summary>
+            Получает список всех закупок
+            </summary>
+            <param name="cancellationToken">Токен отмены операции</param>
+            <returns>Список всех закупок</returns>
+        </member>
+        <member name="M:JewelryWeb.Interfaces.IPurchaseService.GetPurchaseByIdAsync(System.Int32,System.Threading.CancellationToken)">
+            <summary>
+            Получает закупку по идентификатору
+            </summary>
+            <param name="id">Идентификатор закупки</param>
+            <param name="cancellationToken">Токен отмены операции</param>
+            <returns>Объект закупки</returns>
+        </member>
+        <member name="M:JewelryWeb.Interfaces.IPurchaseService.UpdatePurchaseAsync(System.Int32,JewelryWeb.Models.Purchase)">
+            <summary>
+            Обновляет закупку
+            </summary>
+            <param name="id">Идентификатор обновляемой закупки</param>
+            <param name="purchase">Объект с новыми данными закупки</param>
+            <returns>true - успешно, false - ошибка</returns>
+        </member>
+        <member name="M:JewelryWeb.Interfaces.IPurchaseService.CreatePurchaseAsync(JewelryWeb.Models.Purchase)">
+            <summary>
+            Создает новую закупку
+            </summary>
+            <param name="purchase">Объект закупки для создания</param>
+            <returns>Созданный объект закупки</returns>
+        </member>
+        <member name="M:JewelryWeb.Interfaces.IPurchaseService.DeletePurchaseAsync(System.Int32)">
+            <summary>
+            Удаляет закупку по идентификатору
+            </summary>
+            <param name="id">Идентификатор удаляемой закупки</param>
+            <returns>true - успешно, false - ошибка</returns>
+        </member>
+        <member name="T:JewelryWeb.Interfaces.IReviewService">
+            <summary>
+            Интерфейс сервиса для работы с отзывами
+            </summary>
+        </member>
+        <member name="M:JewelryWeb.Interfaces.IReviewService.GetAllReviewsAsync(System.Threading.CancellationToken)">
+            <summary>
+            Получает список всех отзывов
+            </summary>
+            <param name="cancellationToken">Токен отмены операции</param>
+            <returns>Список всех отзывов</returns>
+        </member>
+        <member name="M:JewelryWeb.Interfaces.IReviewService.GetReviewByIdAsync(System.Int32,System.Threading.CancellationToken)">
+            <summary>
+            Получает отзыв по идентификатору
+            </summary>
+            <param name="id">Идентификатор отзыва</param>
+            <param name="cancellationToken">Токен отмены операции</param>
+            <returns>Объект отзыва</returns>
+        </member>
+        <member name="M:JewelryWeb.Interfaces.IReviewService.UpdateReviewAsync(System.Int32,JewelryWeb.Models.Review)">
+            <summary>
+            Обновляет отзыв
+            </summary>
+            <param name="id">Идентификатор обновляемого отзыва</param>
+            <param name="review">Объект с новыми данными отзыва</param>
+            <returns>true - успешно, false - ошибка</returns>
+        </member>
+        <member name="M:JewelryWeb.Interfaces.IReviewService.CreateReviewAsync(JewelryWeb.Models.Review)">
+            <summary>
+            Создает новый отзыв
+            </summary>
+            <param name="review">Объект отзыва для создания</param>
+            <returns>Созданный объект отзыва</returns>
+        </member>
+        <member name="M:JewelryWeb.Interfaces.IReviewService.DeleteReviewAsync(System.Int32)">
+            <summary>
+            Удаляет отзыв по идентификатору
+            </summary>
+            <param name="id">Идентификатор удаляемого отзыва</param>
+            <returns>true - успешно, false - ошибка</returns>
+        </member>
+        <member name="T:JewelryWeb.Interfaces.ISupplierService">
+            <summary>
+            Интерфейс сервиса для работы с поставщиками
+            </summary>
+        </member>
+        <member name="M:JewelryWeb.Interfaces.ISupplierService.GetAllSuppliersAsync(System.Threading.CancellationToken)">
+            <summary>
+            Получает список всех поставщиков
+            </summary>
+            <param name="cancellationToken">Токен отмены операции</param>
+            <returns>Список всех поставщиков</returns>
+        </member>
+        <member name="M:JewelryWeb.Interfaces.ISupplierService.GetSupplierByIdAsync(System.Int32,System.Threading.CancellationToken)">
+            <summary>
+            Получает поставщика по идентификатору
+            </summary>
+            <param name="id">Идентификатор поставщика</param>
+            <param name="cancellationToken">Токен отмены операции</param>
+            <returns>Объект поставщика</returns>
+        </member>
+        <member name="M:JewelryWeb.Interfaces.ISupplierService.UpdateSupplierAsync(System.Int32,JewelryWeb.Models.Supplier)">
+            <summary>
+            Обновляет поставщика
+            </summary>
+            <param name="id">Идентификатор обновляемого поставщика</param>
+            <param name="supplier">Объект с новыми данными поставщика</param>
+            <returns>true - успешно, false - ошибка</returns>
+        </member>
+        <member name="M:JewelryWeb.Interfaces.ISupplierService.CreateSupplierAsync(JewelryWeb.Models.Supplier)">
+            <summary>
+            Создает нового поставщика
+            </summary>
+            <param name="supplier">Объект поставщика для создания</param>
+            <returns>Созданный объект поставщика</returns>
+        </member>
+        <member name="M:JewelryWeb.Interfaces.ISupplierService.DeleteSupplierAsync(System.Int32)">
+            <summary>
+            Удаляет поставщика по идентификатору
+            </summary>
+            <param name="id">Идентификатор удаляемого поставщика</param>
+            <returns>true - успешно, false - ошибка</returns>
+        </member>
+        <member name="T:JewelryWeb.Interfaces.IUserService">
+            <summary>
+            Интерфейс сервиса для работы с пользователями
+            </summary>
+        </member>
+        <member name="M:JewelryWeb.Interfaces.IUserService.Register(System.String,System.String)">
+            <summary>
+            Регистрирует нового пользователя
+            </summary>
+            <param name="email">Электронная почта пользователя</param>
+            <param name="password">Пароль пользователя</param>
+            <returns>Зарегистрированный пользователь</returns>
+        </member>
+        <member name="M:JewelryWeb.Interfaces.IUserService.Authenticate(System.String,System.String)">
+            <summary>
+            Аутентифицирует пользователя
+            </summary>
+            <param name="email">Электронная почта пользователя</param>
+            <param name="password">Пароль пользователя</param>
+            <returns>Аутентифицированный пользователь или null, если аутентификация не удалась</returns>
+        </member>
+        <member name="T:JewelryWeb.Migrations.UpdateColumnTypes">
+            <inheritdoc />
+        </member>
+        <member name="M:JewelryWeb.Migrations.UpdateColumnTypes.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:JewelryWeb.Migrations.UpdateColumnTypes.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:JewelryWeb.Migrations.UpdateColumnTypes.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="T:JewelryWeb.Migrations.AddUser">
+            <inheritdoc />
+        </member>
+        <member name="M:JewelryWeb.Migrations.AddUser.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:JewelryWeb.Migrations.AddUser.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:JewelryWeb.Migrations.AddUser.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="T:JewelryWeb.Migrations.Authentication">
+            <inheritdoc />
+        </member>
+        <member name="M:JewelryWeb.Migrations.Authentication.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:JewelryWeb.Migrations.Authentication.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:JewelryWeb.Migrations.Authentication.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="T:JewelryWeb.Models.AppDbContext">
+            <summary>
+            Контекст базы данных
+            </summary>
+        </member>
+        <member name="M:JewelryWeb.Models.AppDbContext.#ctor(Microsoft.EntityFrameworkCore.DbContextOptions{JewelryWeb.Models.AppDbContext})">
+            <summary>
+            Инициализирует новый экземпляр
+            </summary>
+            <param name="options">Параметры конфигурации для контекста базы данных</param>
+        </member>
+        <member name="P:JewelryWeb.Models.AppDbContext.Products">
+            <summary>Модель товаров</summary>
+        </member>
+        <member name="P:JewelryWeb.Models.AppDbContext.Categories">
+            <summary>Модель категорий</summary>
+        </member>
+        <member name="P:JewelryWeb.Models.AppDbContext.Materials">
+            <summary>Модель материалов</summary>
+        </member>
+        <member name="P:JewelryWeb.Models.AppDbContext.Purchases">
+            <summary>Модель закупок</summary>
+        </member>
+        <member name="P:JewelryWeb.Models.AppDbContext.Suppliers">
+            <summary>Модель поставщиков</summary>
+        </member>
+        <member name="P:JewelryWeb.Models.AppDbContext.Reviews">
+            <summary>Модель отзывов</summary>
+        </member>
+        <member name="P:JewelryWeb.Models.AppDbContext.Clients">
+            <summary>Модель клиентов</summary>
+        </member>
+        <member name="P:JewelryWeb.Models.AppDbContext.Orders">
+            <summary>Модель заказов</summary>
+        </member>
+        <member name="P:JewelryWeb.Models.AppDbContext.Payments">
+            <summary>Модель платежей</summary>
+        </member>
+        <member name="P:JewelryWeb.Models.AppDbContext.TypesPayment">
+            <summary>Модель типа платежей</summary>
+        </member>
+        <member name="P:JewelryWeb.Models.AppDbContext.OrdersElements">
+            <summary>Можель элементов зазаза</summary>
+        </member>
+        <member name="P:JewelryWeb.Models.AppDbContext.Users">
+            <summary>Модель пользователей</summary>
+        </member>
+        <member name="M:JewelryWeb.Models.AppDbContext.OnModelCreating(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <summary>
+            Настройка моделей и связей в бд
+            </summary>
+            <param name="modelBuilder">Построитель моделей</param>
+        </member>
+        <member name="T:JewelryWeb.Models.Category">
+            <summary>
+            Описание модели категории
+            </summary>
+        </member>
+        <member name="P:JewelryWeb.Models.Category.Id">
+            <summary>
+            Уникальный идентификатор категории
+            </summary>
+        </member>
+        <member name="P:JewelryWeb.Models.Category.Name">
+            <summary>
+            Название категории
+            </summary>
+        </member>
+        <member name="P:JewelryWeb.Models.Category.Description">
+            <summary>
+            Описание категории
+            </summary>
+        </member>
+        <member name="P:JewelryWeb.Models.Category.Products">
+            <summary>
+            Коллекция товаров, относящихся к этой категоии
+            </summary>
+        </member>
+        <member name="T:JewelryWeb.Models.Client">
+            <summary>
+            Описание модели клиента
+            </summary>
+        </member>
+        <member name="P:JewelryWeb.Models.Client.Id">
+            <summary>
+            Уникальный идентификатор клиента
+            </summary>
+        </member>
+        <member name="P:JewelryWeb.Models.Client.FirstName">
+            <summary>
+            Имя клиента
+            </summary>
+        </member>
+        <member name="P:JewelryWeb.Models.Client.LastName">
+            <summary>
+            Фамилия клиента
+            </summary>
+        </member>
+        <member name="P:JewelryWeb.Models.Client.PhoneNumber">
+            <summary>
+            Номер телефона клиента
+            </summary>
+        </member>
+        <member name="P:JewelryWeb.Models.Client.UserId">
+            <summary>
+            Идентификатор модели пользователя связанного с клиентом
+            </summary>
+        </member>
+        <member name="P:JewelryWeb.Models.Client.User">
+            <summary>
+            Учетная запись пользователя связанного с клиентом
+            </summary>
+        </member>
+        <member name="P:JewelryWeb.Models.Client.Reviews">
+            <summary>
+            Коллекция отзывов, оставленных клиентом
+            </summary>
+        </member>
+        <member name="P:JewelryWeb.Models.Client.Orders">
+            <summary>
+            Коллекция заказов клиента
+            </summary>
+        </member>
+        <member name="T:JewelryWeb.Models.Material">
+            <summary>
+            Описание модели материлов
+            </summary>
+        </member>
+        <member name="P:JewelryWeb.Models.Material.Id">
+            <summary>
+            Уникальный идентификатор материала
+            </summary>
+        </member>
+        <member name="P:JewelryWeb.Models.Material.Name">
+            <summary>
+            Название материла
+            </summary>
+        </member>
+        <member name="P:JewelryWeb.Models.Material.Description">
+            <summary>
+            Описание материала
+            </summary>
+        </member>
+        <member name="P:JewelryWeb.Models.Material.Products">
+            <summary>
+            Коллекция товаров, связанных с к этому материалу
+            </summary>
+        </member>
+        <member name="T:JewelryWeb.Models.OrderStatus">
+            <summary>
+            Статусы заказа
+            </summary>
+        </member>
+        <member name="F:JewelryWeb.Models.OrderStatus.Pending">
+            <summary> Заказа ожидает обработки </summary>
+        </member>
+        <member name="F:JewelryWeb.Models.OrderStatus.Shipped">
+            <summary> Заказ отправлен </summary>
+        </member>
+        <member name="F:JewelryWeb.Models.OrderStatus.Delivered">
+            <summary> Заказа доставлен </summary>
+        </member>
+        <member name="F:JewelryWeb.Models.OrderStatus.Canceled">
+            <summary> Заказ отменен </summary>
+        </member>
+        <member name="T:JewelryWeb.Models.Order">
+            <summary>
+            Описание модели заказа
+            </summary>
+        </member>
+        <member name="P:JewelryWeb.Models.Order.Id">
+            <summary>
+            Уникальный идентификатор заказа
+            </summary>
+        </member>
+        <member name="P:JewelryWeb.Models.Order.ClientId">
+            <summary>
+            Идентификатор клиента, сделавший заказ
+            </summary>
+        </member>
+        <member name="P:JewelryWeb.Models.Order.Date">
+            <summary>
+            Дата заказа
+            </summary>
+        </member>
+        <member name="P:JewelryWeb.Models.Order.Status">
+            <summary>
+            Статус заказа
+            </summary>
+        </member>
+        <member name="P:JewelryWeb.Models.Order.TotalCost">
+            <summary>
+            Общая стоимость заказа
+            </summary>
+        </member>
+        <member name="P:JewelryWeb.Models.Order.Address">
+            <summary>
+            Адрес доставки заказа
+            </summary>
+        </member>
+        <member name="P:JewelryWeb.Models.Order.Payments">
+            <summary>
+            Информация об оплате заказа
+            </summary>
+        </member>
+        <member name="P:JewelryWeb.Models.Order.OrdersElements">
+            <summary>
+            Список элементов, входящих в заказ
+            </summary>
+        </member>
+        <member name="T:JewelryWeb.Models.OrderElements">
+            <summary>
+            Описание модели элементы заказа
+            </summary>
+        </member>
+        <member name="P:JewelryWeb.Models.OrderElements.Id">
+            <summary>
+            Уникальный идентификатор
+            </summary>
+        </member>
+        <member name="P:JewelryWeb.Models.OrderElements.OrderId">
+            <summary>
+            Идентификатор заказа
+            </summary>
+        </member>
+        <member name="P:JewelryWeb.Models.OrderElements.ProductId">
+            <summary>
+            Идентификатор продукта
+            </summary>
+        </member>
+        <member name="P:JewelryWeb.Models.OrderElements.ProductQuantity">
+            <summary>
+            Количество купленного клиентом товара
+            </summary>
+        </member>
+        <member name="P:JewelryWeb.Models.OrderElements.Price">
+            <summary>
+            Цена за единицу товара на момент оформления заказа
+            </summary>
+        </member>
+        <member name="T:JewelryWeb.Models.Payment">
+            <summary>
+            Представляет платеж, связанный с заказом
+            </summary>
+        </member>
+        <member name="P:JewelryWeb.Models.Payment.Id">
+            <summary>
+            Уникальный идентификатор платежа
+            </summary>
+        </member>
+        <member name="P:JewelryWeb.Models.Payment.OrderId">
+            <summary>
+            Идентификатор заказа, к которому относится платеж
+            </summary>
+        </member>
+        <member name="P:JewelryWeb.Models.Payment.Order">
+            <summary>
+            Связанный заказ
+            </summary>
+        </member>
+        <member name="P:JewelryWeb.Models.Payment.Date">
+            <summary>
+            Дата и время проведения платежа
+            </summary>
+        </member>
+        <member name="P:JewelryWeb.Models.Payment.TotalPayment">
+            <summary>
+            Общая сумма платежа
+            </summary>
+        </member>
+        <member name="P:JewelryWeb.Models.Payment.TypePaymentId">
+            <summary>
+            Идентификатор типа платежа
+            </summary>
+        </member>
+        <member name="P:JewelryWeb.Models.Payment.TypePayment">
+            <summary>
+            Связанный тип платежа
+            </summary>
+        </member>
+        <member name="T:JewelryWeb.Models.Product">
+            <summary>
+            Описание модели товара
+            </summary>
+        </member>
+        <member name="P:JewelryWeb.Models.Product.Id">
+            <summary>
+            Уникальный идентификатор товара
+            </summary>
+        </member>
+        <member name="P:JewelryWeb.Models.Product.Name">
+            <summary>
+            Название товара
+            </summary>
+        </member>
+        <member name="P:JewelryWeb.Models.Product.Description">
+            <summary>
+            Описание товара
+            </summary>
+        </member>
+        <member name="P:JewelryWeb.Models.Product.CategoryId">
+            <summary>
+            Идентификатор категории
+            </summary>
+        </member>
+        <member name="P:JewelryWeb.Models.Product.MaterialId">
+            <summary>
+            Идентификатор материала
+            </summary>
+        </member>
+        <member name="P:JewelryWeb.Models.Product.Price">
+            <summary>
+            Цена товара
+            </summary>
+        </member>
+        <member name="P:JewelryWeb.Models.Product.Quantity">
+            <summary>
+            Количество товара на складе
+            </summary>
+        </member>
+        <member name="P:JewelryWeb.Models.Product.Reviews">
+            <summary>
+            Список отзывов, относящихся к этому товару
+            </summary>
+        </member>
+        <member name="P:JewelryWeb.Models.Product.OrdersElements">
+            <summary>
+            Список элеметов заказаов, относящихся к этому товару
+            </summary>
+        </member>
+        <member name="P:JewelryWeb.Models.Product.Purchases">
+            <summary>
+            Список закупок, в которых был закуплен товар
+            </summary>
+        </member>
+        <member name="T:JewelryWeb.Models.Purchase">
+            <summary>
+            Описание модели закупки
+            </summary>
+        </member>
+        <member name="P:JewelryWeb.Models.Purchase.Id">
+            <summary>
+            Уникальный идентификатор закупки
+            </summary>
+        </member>
+        <member name="P:JewelryWeb.Models.Purchase.SupplierId">
+            <summary>
+            Идентификатор поставщика
+            </summary>
+        </member>
+        <member name="P:JewelryWeb.Models.Purchase.ProductId">
+            <summary>
+            Идентификатор товара
+            </summary>
+        </member>
+        <member name="P:JewelryWeb.Models.Purchase.QuantityProduct">
+            <summary>
+            Количество закупленного товара
+            </summary>
+        </member>
+        <member name="P:JewelryWeb.Models.Purchase.Price">
+            <summary>
+            Цена за единицу товара, по которой закупили у поставщика
+            </summary>
+        </member>
+        <member name="P:JewelryWeb.Models.Purchase.Date">
+            <summary>
+            Дата закупки
+            </summary>
+        </member>
+        <member name="T:JewelryWeb.Models.Review">
+            <summary>
+            Описание модели отзывов
+            </summary>
+        </member>
+        <member name="P:JewelryWeb.Models.Review.Id">
+            <summary>
+            Уникальный идентификатор отзыва
+            </summary>
+        </member>
+        <member name="P:JewelryWeb.Models.Review.ProductId">
+            <summary>
+            Идентификатор товара
+            </summary>
+        </member>
+        <member name="P:JewelryWeb.Models.Review.ClientId">
+            <summary>
+            Идентификатор клиента
+            </summary>
+        </member>
+        <member name="P:JewelryWeb.Models.Review.Rating">
+            <summary>
+            Оценка товара
+            </summary>
+        </member>
+        <member name="P:JewelryWeb.Models.Review.Comment">
+            <summary>
+            Комментарий
+            </summary>
+        </member>
+        <member name="P:JewelryWeb.Models.Review.Date">
+            <summary>
+            Дата написания отзыва
+            </summary>
+        </member>
+        <member name="T:JewelryWeb.Models.Supplier">
+            <summary>
+            Описание модели поставщика
+            </summary>
+        </member>
+        <member name="P:JewelryWeb.Models.Supplier.Id">
+            <summary>
+            Уникальный идентификатор поставщика
+            </summary>
+        </member>
+        <member name="P:JewelryWeb.Models.Supplier.Name">
+            <summary>
+            Название поставщика
+            </summary>
+        </member>
+        <member name="P:JewelryWeb.Models.Supplier.PhoneNumber">
+            <summary>
+            Номер телефона поставщика
+            </summary>
+        </member>
+        <member name="P:JewelryWeb.Models.Supplier.Email">
+            <summary>
+            Почта поставщика
+            </summary>
+        </member>
+        <member name="P:JewelryWeb.Models.Supplier.Address">
+            <summary>
+            Адрес поставщика
+            </summary>
+        </member>
+        <member name="P:JewelryWeb.Models.Supplier.Purchases">
+            <summary>
+            Список поставок этого поставщика
+            </summary>
+        </member>
+        <member name="T:JewelryWeb.Models.TypePayment">
+            <summary>
+            Описание модели типа платежа
+            </summary>
+        </member>
+        <member name="T:JewelryWeb.Models.TypePayment.TypePay">
+            <summary>
+            Список типо оплаты
+            </summary>
+        </member>
+        <member name="F:JewelryWeb.Models.TypePayment.TypePay.BanlCard">
+            <summary> Банковская карта </summary>
+        </member>
+        <member name="F:JewelryWeb.Models.TypePayment.TypePay.EWallet">
+            <summary> Электронный кошелек </summary>
+        </member>
+        <member name="F:JewelryWeb.Models.TypePayment.TypePay.Cash">
+            <summary> Наличные </summary>
+        </member>
+        <member name="F:JewelryWeb.Models.TypePayment.TypePay.BankTransfer">
+            <summary> Банковский перевод </summary>
+        </member>
+        <member name="P:JewelryWeb.Models.TypePayment.Id">
+            <summary>
+            Уникальный идентификатор
+            </summary>
+        </member>
+        <member name="P:JewelryWeb.Models.TypePayment.Type">
+            <summary>
+            Тип оплаты
+            </summary>
+        </member>
+        <member name="P:JewelryWeb.Models.TypePayment.Payments">
+            <summary>
+            Список оплат
+            </summary>
+        </member>
+        <member name="T:JewelryWeb.Services.CategoryService">
+            <summary>
+            Сервис для управления категориями товаров
+            </summary>
+        </member>
+        <member name="M:JewelryWeb.Services.CategoryService.#ctor(JewelryWeb.Models.AppDbContext)">
+            <summary>
+            Конструктор сервиса категорий
+            </summary>
+            <param name="context">Контекст базы данных</param>
+        </member>
+        <member name="M:JewelryWeb.Services.CategoryService.GetAllCategoriesAsync(System.Threading.CancellationToken)">
+            <summary>
+            Получает список всех категорий
+            </summary>
+            <param name="cancellationToken">Токен отмены операции</param>
+            <returns>Список категорий</returns>
+        </member>
+        <member name="M:JewelryWeb.Services.CategoryService.GetCategoryByIdAsync(System.Int32,System.Threading.CancellationToken)">
+            <summary>
+            Получает категорию по идентификатору
+            </summary>
+            <param name="id">Идентификатор категории</param>
+            <param name="cancellationToken">Токен отмены операции</param>
+            <returns>Объект категории</returns>
+        </member>
+        <member name="M:JewelryWeb.Services.CategoryService.UpdateCategoryAsync(System.Int32,JewelryWeb.Models.Category)">
+            <summary>
+            Обновляет данные категории
+            </summary>
+            <param name="id">Идентификатор категории</param>
+            <param name="category">Обновленный объект категории</param>
+            <returns>True, если обновление успешно, иначе false</returns>
+        </member>
+        <member name="M:JewelryWeb.Services.CategoryService.CreateCategoryAsync(JewelryWeb.Models.Category)">
+            <summary>
+            Создает новую категорию
+            </summary>
+            <param name="category">Объект категории</param>
+            <returns>Созданная категория</returns>
+        </member>
+        <member name="M:JewelryWeb.Services.CategoryService.DeleteCategoryAsync(System.Int32)">
+            <summary>
+            Удаляет категорию по идентификатору
+            </summary>
+            <param name="id">Идентификатор категории</param>
+            <returns>True, если удаление успешно</returns>
+        </member>
+        <member name="T:JewelryWeb.Services.ClientService">
+            <summary>
+            Сервис для работы с клиентами
+            </summary>
+        </member>
+        <member name="M:JewelryWeb.Services.ClientService.#ctor(JewelryWeb.Models.AppDbContext)">
+            <summary>
+            Конструктор сервиса категорий
+            </summary>
+            <param name="context">Контекст базы данных</param>
+        </member>
+        <member name="M:JewelryWeb.Services.ClientService.GetAllClientsAsync(System.Threading.CancellationToken)">
+            <summary>
+            Получает список всех клиентов
+            </summary>
+            <param name="cancellationToken">Токен отмены операции</param>
+            <returns>Список всех клиентов</returns>
+        </member>
+        <member name="M:JewelryWeb.Services.ClientService.GetClientByIdAsync(System.Int32,System.Threading.CancellationToken)">
+            <summary>
+            Получает клиента по идентификатору
+            </summary>
+            <param name="id">Идентификатор клиента</param>
+            <param name="cancellationToken">Токен отмены операции</param>
+            <returns>Объект клиента</returns>
+        </member>
+        <member name="M:JewelryWeb.Services.ClientService.UpdateClientAsync(System.Int32,JewelryWeb.Models.Client)">
+            <summary>
+            Обновляет данные клиента
+            </summary>
+            <param name="id">Идентификатор клиента</param>
+            <param name="client">Объект с новыми данными клиента</param>
+            <returns>true - успешно, false - ошибка</returns>
+        </member>
+        <member name="M:JewelryWeb.Services.ClientService.CreateClientAsync(JewelryWeb.Models.Client)">
+            <summary>
+            Создает нового клиента
+            </summary>
+            <param name="client">Объект клиента для создания</param>
+            <returns>Созданный объект клиента</returns>
+        </member>
+        <member name="M:JewelryWeb.Services.ClientService.DeleteClientAsync(System.Int32)">
+            <summary>
+            Удаляет клиента по идентификатору
+            </summary>
+            <param name="id">Идентификатор клиента</param>
+            <returns>true - успешно, false - ошибка</returns>
+        </member>
+        <member name="T:JewelryWeb.Services.MaterialService">
+            <summary>
+            Сервис для работы с материалами
+            </summary>
+        </member>
+        <member name="M:JewelryWeb.Services.MaterialService.#ctor(JewelryWeb.Models.AppDbContext)">
+            <summary>
+            Конструктор сервиса категорий
+            </summary>
+            <param name="context">Контекст базы данных</param>
+        </member>
+        <member name="M:JewelryWeb.Services.MaterialService.GetAllMaterialsAsync(System.Threading.CancellationToken)">
+            <summary>
+            Получает список всех материалов
+            </summary>
+            <param name="cancellationToken">Токен отмены операции</param>
+            <returns>Список всех материалов</returns>
+        </member>
+        <member name="M:JewelryWeb.Services.MaterialService.GetMaterialByIdAsync(System.Int32,System.Threading.CancellationToken)">
+            <summary>
+            Получает материал по идентификатору
+            </summary>
+            <param name="id">Идентификатор материала</param>
+            <param name="cancellationToken">Токен отмены операции</param>
+            <returns>Объект материала</returns>
+        </member>
+        <member name="M:JewelryWeb.Services.MaterialService.UpdateMaterialAsync(System.Int32,JewelryWeb.Models.Material)">
+            <summary>
+            Обновляет данные материала
+            </summary>
+            <param name="id">Идентификатор материала</param>
+            <param name="material">Объект с новыми данными материала</param>
+            <returns>true - успешно, false - ошибка</returns>
+        </member>
+        <member name="M:JewelryWeb.Services.MaterialService.CreateMaterialAsync(JewelryWeb.Models.Material)">
+            <summary>
+            Создает новый материал
+            </summary>
+            <param name="material">Объект материала для создания</param>
+            <returns>Созданный объект материала</returns>
+        </member>
+        <member name="M:JewelryWeb.Services.MaterialService.DeleteMaterialAsync(System.Int32)">
+            <summary>
+            Удаляет материал по идентификатору
+            </summary>
+            <param name="id">Идентификатор материала</param>
+            <returns>true - успешно, false - ошибка</returns>
+        </member>
+        <member name="T:JewelryWeb.Services.OrderElementsService">
+            <summary>
+            Сервис для работы с элементами заказа
+            </summary>
+        </member>
+        <member name="M:JewelryWeb.Services.OrderElementsService.#ctor(JewelryWeb.Models.AppDbContext)">
+            <summary>
+            Конструктор сервиса категорий
+            </summary>
+            <param name="context">Контекст базы данных</param>
+        </member>
+        <member name="M:JewelryWeb.Services.OrderElementsService.GetAllOrderElementsAsync(System.Threading.CancellationToken)">
+            <summary>
+            Получает список всех элементов заказа
+            </summary>
+            <param name="cancellationToken">Токен отмены операции</param>
+            <returns>Список всех элементов заказа</returns>
+        </member>
+        <member name="M:JewelryWeb.Services.OrderElementsService.GetOrderElementByIdAsync(System.Int32,System.Threading.CancellationToken)">
+            <summary>
+            Получает элемент заказа по идентификатору
+            </summary>
+            <param name="id">Идентификатор элемента заказа</param>
+            <param name="cancellationToken">Токен отмены операции</param>
+            <returns>Объект элемента заказа</returns>
+        </member>
+        <member name="M:JewelryWeb.Services.OrderElementsService.UpdateOrderElementAsync(System.Int32,JewelryWeb.Models.OrderElements)">
+            <summary>
+            Обновляет данные элемента заказа
+            </summary>
+            <param name="id">Идентификатор элемента заказа</param>
+            <param name="orderElement">Объект с новыми данными элемента заказа</param>
+            <returns>true - успешно, false - ошибка</returns>
+        </member>
+        <member name="M:JewelryWeb.Services.OrderElementsService.CreateOrderElementAsync(JewelryWeb.Models.OrderElements)">
+            <summary>
+            Создает новый элемент заказа
+            </summary>
+            <param name="orderElement">Объект элемента заказа для создания</param>
+            <returns>Созданный объект элемента заказа</returns>
+        </member>
+        <member name="M:JewelryWeb.Services.OrderElementsService.DeleteOrderElementAsync(System.Int32)">
+            <summary>
+            Удаляет элемент заказа по идентификатору
+            </summary>
+            <param name="id">Идентификатор элемента заказа</param>
+            <returns>true - успешно, false - ошибка</returns>
+        </member>
+        <member name="T:JewelryWeb.Services.OrdersService">
+            <summary>
+            Сервис для работы с заказами
+            </summary>
+        </member>
+        <member name="M:JewelryWeb.Services.OrdersService.#ctor(JewelryWeb.Models.AppDbContext)">
+            <summary>
+            Конструктор сервиса категорий
+            </summary>
+            <param name="context">Контекст базы данных</param>
+        </member>
+        <member name="M:JewelryWeb.Services.OrdersService.GetAllOrdersAsync(System.Threading.CancellationToken)">
+            <summary>
+            Получает список всех заказов
+            </summary>
+            <param name="cancellationToken">Токен отмены операции</param>
+            <returns>Список всех заказов</returns>
+        </member>
+        <member name="M:JewelryWeb.Services.OrdersService.GetOrderByIdAsync(System.Int32,System.Threading.CancellationToken)">
+            <summary>
+            Получает заказ по идентификатору
+            </summary>
+            <param name="id">Идентификатор заказа</param>
+            <param name="cancellationToken">Токен отмены операции</param>
+            <returns>Объект заказа</returns>
+        </member>
+        <member name="M:JewelryWeb.Services.OrdersService.UpdateOrderAsync(System.Int32,JewelryWeb.Models.Order)">
+            <summary>
+            Обновляет данные заказа
+            </summary>
+            <param name="id">Идентификатор заказа</param>
+            <param name="order">Объект с новыми данными заказа</param>
+            <returns>true - успешно, false - ошибка</returns>
+        </member>
+        <member name="M:JewelryWeb.Services.OrdersService.CreateOrderAsync(JewelryWeb.Models.Order)">
+            <summary>
+            Создает новый заказ
+            </summary>
+            <param name="order">Объект заказа для создания</param>
+            <returns>Созданный объект заказа</returns>
+        </member>
+        <member name="M:JewelryWeb.Services.OrdersService.DeleteOrderAsync(System.Int32)">
+            <summary>
+            Удаляет заказ по идентификатору
+            </summary>
+            <param name="id">Идентификатор заказа</param>
+            <returns>true - успешно, false - ошибка</returns>
+        </member>
+        <member name="T:JewelryWeb.Services.PaymentsService">
+            <summary>
+            Сервис для работы с платежами
+            </summary>
+        </member>
+        <member name="M:JewelryWeb.Services.PaymentsService.#ctor(JewelryWeb.Models.AppDbContext)">
+            <summary>
+            Конструктор сервиса категорий
+            </summary>
+            <param name="context">Контекст базы данных</param>
+        </member>
+        <member name="M:JewelryWeb.Services.PaymentsService.GetAllPaymentsAsync(System.Threading.CancellationToken)">
+            <summary>
+            Получается список всех платежей
+            </summary>
+            <param name="cancellationToken"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JewelryWeb.Services.PaymentsService.GetPaymentByIdAsync(System.Int32,System.Threading.CancellationToken)">
+            <summary>
+            Получает платеж по идентификатору
+            </summary>
+            <param name="id">Идентификатор платежа</param>
+            <param name="cancellationToken">Токен отмены операции</param>
+            <returns>Объект платежа</returns>
+        </member>
+        <member name="M:JewelryWeb.Services.PaymentsService.UpdatePaymentAsync(System.Int32,JewelryWeb.Models.Payment)">
+            <summary>
+            Обновляет данные платежа
+            </summary>
+            <param name="id">Идентификатор платежа</param>
+            <param name="payment">Обновленный объект платежа</param>
+            <returns>true - успешно, false - ошибка</returns>
+        </member>
+        <member name="M:JewelryWeb.Services.PaymentsService.CreatePaymentAsync(JewelryWeb.Models.Payment)">
+            <summary>
+            Создает новый платеж
+            </summary>
+            <param name="payment">Объект платежа</param>
+            <returns>Созданный платеж</returns>
+        </member>
+        <member name="M:JewelryWeb.Services.PaymentsService.DeletePaymentAsync(System.Int32)">
+            <summary>
+            Удаляется платеж по идентификатору
+            </summary>
+            <param name="id">Идентификатор платежа</param>
+            <returns>true - успешно, false - ошибка</returns>
+        </member>
+        <member name="T:JewelryWeb.Services.ProductService">
+            <summary>
+            Сервис для управления товарами
+            </summary>
+        </member>
+        <member name="M:JewelryWeb.Services.ProductService.#ctor(JewelryWeb.Models.AppDbContext)">
+            <summary>
+            Конструктор сервиса категорий
+            </summary>
+            <param name="context">Контекст базы данных</param>
+        </member>
+        <member name="M:JewelryWeb.Services.ProductService.GetAllProductsAsync(System.Threading.CancellationToken)">
+            <summary>
+            Получает список всех товаров
+            </summary>
+            <param name="cancellationToken">Токен отмены операции</param>
+            <returns>Список всех товаров</returns>
+        </member>
+        <member name="M:JewelryWeb.Services.ProductService.GetProductByIdAsync(System.Int32,System.Threading.CancellationToken)">
+            <summary>
+            Получает товар по идентификатору
+            </summary>
+            <param name="id">Идентификатор товара</param>
+            <param name="cancellationToken">Токен отмены операции</param>
+            <returns>Объект товара</returns>
+        </member>
+        <member name="M:JewelryWeb.Services.ProductService.UpdateProductAsync(System.Int32,JewelryWeb.Models.Product)">
+            <summary>
+            Обновляет товар
+            </summary>
+            <param name="id">Идентификатор обновляемого товара</param>
+            <param name="product">Объект с новыми данными товара</param>
+            <returns>true - успешно, false - ошибка</returns>
+        </member>
+        <member name="M:JewelryWeb.Services.ProductService.CreateProductAsync(JewelryWeb.Models.Product)">
+            <summary>
+            Создает новый товар
+            </summary>
+            <param name="product">Объект товара для создания</param>
+            <returns>Созданный объект товара</returns>
+        </member>
+        <member name="M:JewelryWeb.Services.ProductService.DeleteProductAsync(System.Int32)">
+            <summary>
+            Удаляет товар по идентификатору
+            </summary>
+            <param name="id">Идентификатор удаляемого товара</param>
+            <returns>true - успешно, false - ошибка</returns>
+        </member>
+        <member name="T:JewelryWeb.Services.PurchaseService">
+            <summary>
+            Сервис для управления закупками
+            </summary>
+        </member>
+        <member name="M:JewelryWeb.Services.PurchaseService.#ctor(JewelryWeb.Models.AppDbContext)">
+            <summary>
+            Конструктор сервиса категорий
+            </summary>
+            <param name="context">Контекст базы данных</param>
+        </member>
+        <member name="M:JewelryWeb.Services.PurchaseService.GetAllPurchasesAsync(System.Threading.CancellationToken)">
+            <summary>
+            Получает список всех закупок
+            </summary>
+            <param name="cancellationToken">Токен отмены операции</param>
+            <returns>Список всех закупок</returns>
+        </member>
+        <member name="M:JewelryWeb.Services.PurchaseService.GetPurchaseByIdAsync(System.Int32,System.Threading.CancellationToken)">
+            <summary>
+            Получает закупку по идентификатору
+            </summary>
+            <param name="id">Идентификатор закупки</param>
+            <param name="cancellationToken">Токен отмены операции</param>
+            <returns>Объект закупки</returns>
+        </member>
+        <member name="M:JewelryWeb.Services.PurchaseService.UpdatePurchaseAsync(System.Int32,JewelryWeb.Models.Purchase)">
+            <summary>
+            Обновляет закупку
+            </summary>
+            <param name="id">Идентификатор обновляемой закупки</param>
+            <param name="purchase">Объект с новыми данными закупки</param>
+            <returns>true - успешно, false - ошибка</returns>
+        </member>
+        <member name="M:JewelryWeb.Services.PurchaseService.CreatePurchaseAsync(JewelryWeb.Models.Purchase)">
+            <summary>
+            Создает новую закупку
+            </summary>
+            <param name="purchase">Объект закупки для создания</param>
+            <returns>Созданный объект закупки</returns>
+        </member>
+        <member name="M:JewelryWeb.Services.PurchaseService.DeletePurchaseAsync(System.Int32)">
+            <summary>
+            Удаляет закупку по идентификатору
+            </summary>
+            <param name="id">Идентификатор удаляемой закупки</param>
+            <returns>true - успешно, false - ошибка</returns>
+        </member>
+        <member name="T:JewelryWeb.Services.ReviewService">
+            <summary>
+            Сервис для управления отзывами
+            </summary>
+        </member>
+        <member name="M:JewelryWeb.Services.ReviewService.#ctor(JewelryWeb.Models.AppDbContext)">
+            <summary>
+            Конструктор сервиса категорий
+            </summary>
+            <param name="context">Контекст базы данных</param>
+        </member>
+        <member name="M:JewelryWeb.Services.ReviewService.GetAllReviewsAsync(System.Threading.CancellationToken)">
+            <summary>
+            Получает список всех отзывов
+            </summary>
+            <param name="cancellationToken">Токен отмены операции</param>
+            <returns>Список всех отзывов</returns>
+        </member>
+        <member name="M:JewelryWeb.Services.ReviewService.GetReviewByIdAsync(System.Int32,System.Threading.CancellationToken)">
+            <summary>
+            Получает отзыв по идентификатору
+            </summary>
+            <param name="id">Идентификатор отзыва</param>
+            <param name="cancellationToken">Токен отмены операции</param>
+            <returns>Объект отзыва</returns>
+        </member>
+        <member name="M:JewelryWeb.Services.ReviewService.UpdateReviewAsync(System.Int32,JewelryWeb.Models.Review)">
+            <summary>
+            Обновляет отзыв
+            </summary>
+            <param name="id">Идентификатор обновляемого отзыва</param>
+            <param name="review">Объект с новыми данными отзыва</param>
+            <returns>true - успешно, false - ошибка</returns>
+        </member>
+        <member name="M:JewelryWeb.Services.ReviewService.CreateReviewAsync(JewelryWeb.Models.Review)">
+            <summary>
+            Создает новый отзыв
+            </summary>
+            <param name="review">Объект отзыва для создания</param>
+            <returns>Созданный объект отзыва</returns>
+        </member>
+        <member name="M:JewelryWeb.Services.ReviewService.DeleteReviewAsync(System.Int32)">
+            <summary>
+            Удаляет отзыв по идентификатору
+            </summary>
+            <param name="id">Идентификатор удаляемого отзыва</param>
+            <returns>true - успешно, false - ошибка</returns>
+        </member>
+        <member name="T:JewelryWeb.Services.SupplierService">
+            <summary>
+            Сервис для управления поставщиков
+            </summary>
+        </member>
+        <member name="M:JewelryWeb.Services.SupplierService.#ctor(JewelryWeb.Models.AppDbContext)">
+            <summary>
+            Конструктор сервиса категорий
+            </summary>
+            <param name="context">Контекст базы данных</param>
+        </member>
+        <member name="M:JewelryWeb.Services.SupplierService.GetAllSuppliersAsync(System.Threading.CancellationToken)">
+            <summary>
+            Получает список всех поставщиков
+            </summary>
+            <param name="cancellationToken">Токен отмены операции</param>
+            <returns>Список всех поставщиков</returns>
+        </member>
+        <member name="M:JewelryWeb.Services.SupplierService.GetSupplierByIdAsync(System.Int32,System.Threading.CancellationToken)">
+            <summary>
+            Получает поставщика по идентификатору
+            </summary>
+            <param name="id">Идентификатор поставщика</param>
+            <param name="cancellationToken">Токен отмены операции</param>
+            <returns>Объект поставщика</returns>
+        </member>
+        <member name="M:JewelryWeb.Services.SupplierService.UpdateSupplierAsync(System.Int32,JewelryWeb.Models.Supplier)">
+            <summary>
+            Обновляет поставщика
+            </summary>
+            <param name="id">Идентификатор обновляемого поставщика</param>
+            <param name="supplier">Объект с новыми данными поставщика</param>
+            <returns>true - успешно, false - ошибка</returns>
+        </member>
+        <member name="M:JewelryWeb.Services.SupplierService.CreateSupplierAsync(JewelryWeb.Models.Supplier)">
+            <summary>
+            Создает нового поставщика
+            </summary>
+            <param name="supplier">Объект поставщика для создания</param>
+            <returns>Созданный объект поставщика</returns>
+        </member>
+        <member name="M:JewelryWeb.Services.SupplierService.DeleteSupplierAsync(System.Int32)">
+            <summary>
+            Удаляет поставщика по идентификатору
+            </summary>
+            <param name="id">Идентификатор удаляемого поставщика</param>
+            <returns>true - успешно, false - ошибка</returns>
+        </member>
+        <member name="T:JewelryWeb.Services.UserService">
+            <summary>
+            Сервис для работы с пользователями
+            </summary>
+        </member>
+        <member name="M:JewelryWeb.Services.UserService.#ctor(JewelryWeb.Models.AppDbContext)">
+            <summary>
+            Конструктор сервиса категорий
+            </summary>
+            <param name="context">Контекст базы данных</param>
+        </member>
+        <member name="M:JewelryWeb.Services.UserService.Register(System.String,System.String)">
+            <summary>
+            Регистрирует нового пользователя
+            </summary>
+            <param name="email">Электронная почта пользователя</param>
+            <param name="password">Пароль пользователя</param>
+            <returns>Зарегистрированный пользователь</returns>
+        </member>
+        <member name="M:JewelryWeb.Services.UserService.Authenticate(System.String,System.String)">
+            <summary>
+            Аутентифицирует пользователя
+            </summary>
+            <param name="email">Электронная почта пользователя</param>
+            <param name="password">Пароль пользователя</param>
+            <returns>Аутентифицированный пользователь или null, если аутентификация не удалась</returns>
+        </member>
+        <member name="T:UserController">
+            <summary>
+            Контроллер для управления пользователями (регистрация и аутентификация)
+            </summary>
+        </member>
+        <member name="M:UserController.#ctor(JewelryWeb.Interfaces.IUserService,Microsoft.Extensions.Options.IOptions{JewelryWeb.AuthOptions})">
+            <summary>
+            Конструктор контроллера пользователей
+            </summary>
+            <param name="userService">Сервис пользователей</param>
+            <param name="authOptions">Настройки аутентификации</param>
+        </member>
+        <member name="M:UserController.Register(UserRegisterModel)">
+            <summary>
+            Регистрирует нового пользователя
+            </summary>
+            <param name="model">Модель регистрации пользователя</param>
+            <returns>Данные зарегистрированного пользователя</returns>
+        </member>
+        <member name="M:UserController.Login(UserLoginModel)">
+            <summary>
+            Аутентифицирует пользователя и возвращает JWT-токен
+            </summary>
+            <param name="model">Модель аутентификации пользователя</param>
+            <returns>JWT-токен для доступа</returns>
+        </member>
+        <member name="T:UserRegisterModel">
+            <summary>
+            Модель для регистрации пользователя
+            </summary>
+        </member>
+        <member name="P:UserRegisterModel.Email">
+            <summary>
+            Электронная почта пользователя
+            </summary>
+        </member>
+        <member name="P:UserRegisterModel.Password">
+            <summary>
+            Пароль пользователя
+            </summary>
+        </member>
+        <member name="T:UserLoginModel">
+            <summary>
+            Модель для аутентификации пользователя
+            </summary>
+        </member>
+        <member name="P:UserLoginModel.Email">
+            <summary>
+            Электронная почта пользователя
+            </summary>
+        </member>
+        <member name="P:UserLoginModel.Password">
+            <summary>
+            Пароль пользователя
+            </summary>
+        </member>
+        <member name="T:User">
+            <summary>
+            Описание модели пользователя
+            </summary>
+        </member>
+        <member name="P:User.Id">
+            <summary>
+            Уникальный идентификатор пользователя
+            </summary>
+        </member>
+        <member name="P:User.Email">
+            <summary>
+            Почта пользователя
+            </summary>
+        </member>
+        <member name="P:User.PasswordHash">
+            <summary>
+            Хэш пароля пользователя
+            </summary>
+        </member>
+        <member name="P:User.Role">
+            <summary>
+            Роль пользователя
+            </summary>
+        </member>
+    </members>
+</doc>

@@ -3,29 +3,47 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using JewelryWeb.Models;
 using JewelryWeb.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 
 namespace JewelryWeb.Controllers
 {
+    /// <summary>
+    /// Контроллер для управления закупками
+    /// </summary>
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class PurchasesController : ControllerBase
     {
         private readonly IPurchaseService _purchaseService;
 
+        /// <summary>
+        /// Конструктор контроллера закупок
+        /// </summary>
+        /// <param name="purchaseService">Сервис закупок</param>
         public PurchasesController(IPurchaseService purchaseService)
         {
             _purchaseService = purchaseService;
         }
 
-        // GET: api/Purchases
+        /// <summary>
+        /// Получает список всех закупок
+        /// </summary>
+        /// <param name="cancellationToken">Токен отмены операции</param>
+        /// <returns>Список всех закупок</returns>
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Purchase>>> GetPurchases(CancellationToken cancellation)
+        public async Task<ActionResult<IEnumerable<Purchase>>> GetPurchases(CancellationToken cancellationToken)
         {
-            var purchases = await _purchaseService.GetAllPurchasesAsync(cancellation);
+            var purchases = await _purchaseService.GetAllPurchasesAsync(cancellationToken);
             return Ok(purchases);
         }
 
-        // GET: api/Purchases/5
+        /// <summary>
+        /// Получает закупку по идентификатору
+        /// </summary>
+        /// <param name="id">Идентификатор закупки</param>
+        /// <param name="cancellationToken">Токен отмены операции</param>
+        /// <returns>Объект закупки</returns>
         [HttpGet("{id}")]
         public async Task<ActionResult<Purchase>> GetPurchase(int id, CancellationToken cancellationToken)
         {
@@ -38,7 +56,12 @@ namespace JewelryWeb.Controllers
             return Ok(purchase);
         }
 
-        // PUT: api/Purchases/5
+        /// <summary>
+        /// Обновляет закупку
+        /// </summary>
+        /// <param name="id">Идентификатор обновляемой закупки</param>
+        /// <param name="purchase">Объект с новыми данными закупки</param>
+        /// <returns>Результат обновления</returns>
         [HttpPut("{id}")]
         public async Task<IActionResult> PutPurchase(int id, Purchase purchase)
         {
@@ -51,7 +74,11 @@ namespace JewelryWeb.Controllers
             return NoContent();
         }
 
-        // POST: api/Purchases
+        /// <summary>
+        /// Создает новую закупку
+        /// </summary>
+        /// <param name="purchase">Объект закупки для создания</param>
+        /// <returns>Созданный объект закупки</returns>
         [HttpPost]
         public async Task<ActionResult<Purchase>> PostPurchase(Purchase purchase)
         {
@@ -59,7 +86,11 @@ namespace JewelryWeb.Controllers
             return CreatedAtAction(nameof(GetPurchase), new { id = createdPurchase.Id }, createdPurchase);
         }
 
-        // DELETE: api/Purchases/5
+        /// <summary>
+        /// Удаляет закупку по идентификатору
+        /// </summary>
+        /// <param name="id">Идентификатор удаляемой закупки</param>
+        /// <returns>Результат удаления</returns>
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeletePurchase(int id)
         {

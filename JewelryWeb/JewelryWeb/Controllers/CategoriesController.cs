@@ -3,21 +3,34 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using JewelryWeb.Models;
 using JewelryWeb.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 
 namespace JewelryWeb.Controllers
 {
+    /// <summary>
+    /// Контроллер для управления категориями товаров
+    /// </summary>
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class CategoriesController : ControllerBase
     {
         private readonly ICategoryService _categoryService;
 
+        /// <summary>
+        /// Конструктор контроллера категорий
+        /// </summary>
+        /// <param name="categoryService">Сервис категорий</param>
         public CategoriesController(ICategoryService categoryService)
         {
             _categoryService = categoryService;
         }
 
-        // GET: api/Categories
+        /// <summary>
+        /// Получает список всех категорий
+        /// </summary>
+        /// <param name="cancellationToken">Токен отмены операции</param>
+        /// <returns>Список категорий</returns>
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Category>>> GetCategories(CancellationToken cancellationToken)
         {
@@ -25,7 +38,12 @@ namespace JewelryWeb.Controllers
             return Ok(categories);
         }
 
-        // GET: api/Categories/5
+        /// <summary>
+        /// Получает категорию по идентификатору
+        /// </summary>
+        /// <param name="id">Идентификатор категории</param>
+        /// <param name="cancellationToken">Токен отмены операции</param>
+        /// <returns>Объект категории</returns>
         [HttpGet("{id}")]
         public async Task<ActionResult<Category>> GetCategory(int id, CancellationToken cancellationToken)
         {
@@ -38,7 +56,12 @@ namespace JewelryWeb.Controllers
             return Ok(category);
         }
 
-        // PUT: api/Categories/5
+        /// <summary>
+        /// Обновляет категорию
+        /// </summary>
+        /// <param name="id">Идентификатор категории</param>
+        /// <param name="category">Объект с обновленными данными</param>
+        /// <returns>Результат операции</returns>
         [HttpPut("{id}")]
         public async Task<IActionResult> PutCategory(int id, Category category)
         {
@@ -51,7 +74,11 @@ namespace JewelryWeb.Controllers
             return NoContent();
         }
 
-        // POST: api/Categories
+        /// <summary>
+        /// Создает новую категорию
+        /// </summary>
+        /// <param name="category">Объект категории</param>
+        /// <returns>Созданная категория</returns>
         [HttpPost]
         public async Task<ActionResult<Category>> PostCategory(Category category)
         {
@@ -59,7 +86,11 @@ namespace JewelryWeb.Controllers
             return CreatedAtAction(nameof(GetCategory), new { id = createdCategory.Id }, createdCategory);
         }
 
-        // DELETE: api/Categories/5
+        /// <summary>
+        /// Удаляет категорию по идентификатору
+        /// </summary>
+        /// <param name="id">Идентификатор категории</param>
+        /// <returns>Результат удаления</returns>
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteCategory(int id)
         {

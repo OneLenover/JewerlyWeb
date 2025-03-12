@@ -7,21 +7,34 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using JewelryWeb.Models;
 using JewelryWeb.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 
 namespace JewelryWeb.Controllers
 {
+    /// <summary>
+    /// Контроллер для управления товарами
+    /// </summary>
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class ProductsController : ControllerBase
     {
         private readonly IProductsService _productsService;
 
+        /// <summary>
+        /// Конструктор контроллера товаров
+        /// </summary>
+        /// <param name="productsService">Сервис товаров</param>
         public ProductsController(IProductsService productsService)
         {
             _productsService = productsService;
         }
 
-        // GET: api/Products
+        /// <summary>
+        /// Получает список всех товаров
+        /// </summary>
+        /// <param name="cancellationToken">Токен отмены операции</param>
+        /// <returns>Список всех товаров</returns>
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Product>>> GetProducts(CancellationToken cancellationToken)
         {
@@ -29,7 +42,12 @@ namespace JewelryWeb.Controllers
             return Ok(products);
         }
 
-        // GET: api/Products/5
+        /// <summary>
+        /// Получает товар по идентификатору
+        /// </summary>
+        /// <param name="id">Идентификатор товара</param>
+        /// <param name="cancellationToken">Токен отмены операции</param>
+        /// <returns>Объект товара</returns>
         [HttpGet("{id}")]
         public async Task<ActionResult<Product>> GetProduct(int id, CancellationToken cancellationToken)
         {
@@ -42,7 +60,12 @@ namespace JewelryWeb.Controllers
             return Ok(product);
         }
 
-        // PUT: api/Products/5
+        /// <summary>
+        /// Обновляет товар
+        /// </summary>
+        /// <param name="id">Идентификатор обновляемого товара</param>
+        /// <param name="product">Объект с новыми данными товара</param>
+        /// <returns>Результат обновления</returns>
         [HttpPut("{id}")]
         public async Task<IActionResult> PutProduct(int id, Product product)
         {
@@ -55,7 +78,11 @@ namespace JewelryWeb.Controllers
             return NoContent();
         }
 
-        // POST: api/Products
+        /// <summary>
+        /// Создает новый товар
+        /// </summary>
+        /// <param name="product">Объект товара для создания</param>
+        /// <returns>Созданный объект товара</returns>
         [HttpPost]
         public async Task<ActionResult<Product>> PostProduct(Product product)
         {
@@ -63,7 +90,11 @@ namespace JewelryWeb.Controllers
             return CreatedAtAction(nameof(GetProduct), new { id = createdProduct.Id }, createdProduct);
         }
 
-        // DELETE: api/Products/5
+        /// <summary>
+        /// Удаляет товар по идентификатору
+        /// </summary>
+        /// <param name="id">Идентификатор удаляемого товара</param>
+        /// <returns>Результат удаления</returns>
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteProduct(int id)
         {
